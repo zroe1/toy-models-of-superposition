@@ -1,0 +1,27 @@
+# Ignore specific LaTeX-generated files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.synctex.gz
+*.alg
+*.acr
+*.acn
+*.glg
+*.glo
+*.gls
+*.ist
+*.idx
+*.ilg
+*.ind
+*.end
+*.fls
+*.fdb_latexmk
+*.synctex(busy)
+*.synctex.gz(busy)
