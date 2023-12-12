@@ -1,5 +1,5 @@
 \documentclass{article} % This line defines the type of document. 'article' is a common class for small documents.
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=1.4in]{geometry}
 \usepackage{graphicx}
 \usepackage{titlesec}
 
@@ -32,7 +32,7 @@
 \end{abstract}
 
 
-\section{Introduction}
+\section{Background and Motivation}
 
 
 \begin{figure}[h]
@@ -48,6 +48,30 @@
     \caption{Graphic from Anthropic Paper}
     \label{fig:section1_anthropic}
 \end{figure}
+
+\section{Demonstrating Superposition}
+
+In this section of Toy Models of Superpostion\cite{elhage2022toy}, the researchers
+provide context and define terms. This provides a good overveiw for people
+unfamiliar with some of the concepts discussed in this replication.\newline\newline
+In this paper, I make a few additional comments about some key terms to provide
+context in this paper. \newline \newline
+\textbf{(1) Defining Features: }The original paper Toy Models of Superpostion
+defines features broadly as "properties of the input which a sufficiently large 
+neural network will reliably dedicate a neuron to representing." The authors do
+however describe this definition as "slightly circular" and note that they are
+not "overly attached to it."\newline\newline
+I find the definition especially problematic because a network that is small or
+has unconventional archetecture may represent a feature that a larger network
+or a network with a more typical archetecture may represent. In other words, just
+because a nueral network represents the input in a way that a "sufficiently large network"
+would never represent, does not mean that we should not think of these representations 
+as features.\newline\newline
+As a result, I propose an alternative definition: features are aspects of the
+input that a neural network represents accuratly with a higher propability than 
+a randomly initialized network. In other words, features are parts of the input 
+that a model determines to be important enough to represent internally.
+
 
 \bibliographystyle{plain}
 \bibliography{references}
