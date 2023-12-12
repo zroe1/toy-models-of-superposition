@@ -1,6 +1,10 @@
 \documentclass{article} % This line defines the type of document. 'article' is a common class for small documents.
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries}{\thesection}{1em}{}
 
 \begin{document} % This line marks the beginning of the document content.
 
@@ -16,34 +20,36 @@
 
 \begin{abstract}
 \begin{quote}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu neque 
-    vitae velit efficitur venenatis. Fusce nec sem mauris. Fusce molestie massa 
-    et dolor euismod, ut pharetra urna tristique. Vestibulum vel tincidunt erat. 
-    Nam efficitur mi sed eros dictum elementum. Phasellus posuere felis euismod, 
-    volutpat nulla sit amet, efficitur ipsum. Mauris ut eros in nisl placerat 
-    finibus a non mi. Integer a porttitor mauris. Sed a lacus vel nulla lacinia 
-    pretium at vel tellus. Vivamus pharetra ipsum sed erat hendrerit placerat. 
-    Mauris id mauris convallis, lobortis dui in, pulvinar turpis. Aliquam erat 
-    volutpat. Vivamus facilisis pharetra nunc fermentum blandit. Donec vehicula 
-    dictum libero, vitae consequat neque tempor in.
+    Toy Models of Superpostion\cite{elhage2022toy} is a groundbreaking paper published by 
+    researchers affilated with Anthropic and Harvard University in 2022. The
+    paper demonstrates that neural networks can represent more features than
+    they have demensions buy training small models with under 100 neurons. Additionally,
+    they use these so called "toy models" to understand the relationship between
+    how neural networks are trained and how they represent the data internally.
+    This paper was able to the finding from this paper and make new observations
+    about "toy models" and how they behave under different training circumstances.
 \end{quote}
 \end{abstract}
+
+
+\section{Introduction}
+
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\linewidth]{section_1/images/section1_replicated_graphic.png}
-    \caption{Caption for the image.}
-    \label{fig:my_label}
+    \caption{Replicated feature directions example.}
+    \label{fig:section1_replication}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.67\linewidth]{section_1/images/section1_anthropic_graphic_.png}
-    \caption{Caption for the image.}
-    \label{fig:my_label}
+    \caption{Graphic from Anthropic Paper}
+    \label{fig:section1_anthropic}
 \end{figure}
 
-
-% Hello World! % Your content goes here.
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document} % This line marks the end of the document content.
