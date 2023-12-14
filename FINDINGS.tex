@@ -2,6 +2,13 @@
 \usepackage[margin=1.4in]{geometry}
 \usepackage{graphicx}
 \usepackage{titlesec}
+\usepackage{caption}
+% \usepackage{hyperref}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+
+
+% Set paragraph indentation to zero
+\setlength{\parindent}{0pt}
 
 \titleformat{\section}
   {\normalfont\large\bfseries}{\thesection}{1em}{}
@@ -21,41 +28,56 @@
 \begin{abstract}
 \begin{quote}
     Toy Models of Superpostion\cite{elhage2022toy} is a groundbreaking paper published by 
-    researchers affilated with Anthropic and Harvard University in 2022. The
-    paper demonstrates that neural networks can represent more features than
-    they have demensions buy training small models with under 100 neurons. Additionally,
-    they use these so called "toy models" to understand the relationship between
-    how neural networks are trained and how they represent the data internally.
-    This paper was able to the finding from this paper and make new observations
-    about "toy models" and how they behave under different training circumstances.
+    researchers affilated with Anthropic and Harvard University in 2022. By 
+    investigating small models with under 100 neurons, the paper demonstrates 
+    that neural networks can represent more features than they have demensions. 
+    Additionally, they use these so called "toy models" to understand the 
+    relationship between how neural networks are trained and how they represent 
+    the data internally. This paper was able to the finding from this paper and 
+    make new observations about "toy models" and how they behave under different 
+    training circumstances.
 \end{quote}
 \end{abstract}
 
 
-\section{Background and Motivation}
+\section{Introduction}
 
+The orginal paper motivates the idea of superpostion with the following graphic:
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{section_1/images/section1_replicated_graphic.png}
-    \caption{Replicated feature directions example.}
+    \includegraphics[width=0.61\linewidth]{section_1/images/section1_anthropic_graphic_.png}
+    \captionsetup{font=footnotesize} % Set the font size for this caption
+    % \caption{Graphic from Anthropic Paper}
+    \label{fig:section1_anthropic}
+\end{figure}
+The basic idea is this: if you think of each feature as being represented inside a
+nueral network as a direction, you can graph these directions and observe them.
+In the graphic above, the researchers studied a model with two neurons and five inputs.
+Recreating this model showed the same results when sparsity was varied. A replication
+of the original graphic can be found below and the code used to generate it can be found \href{http://www.example.com}{here}. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.68\linewidth]{section_1/images/section1_replicated_graphic.png}
+    \captionsetup{font=footnotesize} % Set the font size for this caption
+    % \caption{Replicated feature directions example.}
     \label{fig:section1_replication}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.67\linewidth]{section_1/images/section1_anthropic_graphic_.png}
-    \caption{Graphic from Anthropic Paper}
-    \label{fig:section1_anthropic}
-\end{figure}
+Although this example only has two neurons (meaning it can be graphed in 2D), in
+future sections we will see how similar aproachs scale nicely to models with more neurons.
+As far as I understand, it is still unclear weather the ideas 
+dicussed in the original paper can be scaled to help understand and identify bias in 
+much larger models such as GTP-4, Claude 2, or Gemini.
 
-\section{Demonstrating Superposition}
 
-In this section of Toy Models of Superpostion\cite{elhage2022toy}, the researchers
-provide context and define terms. This provides a good overveiw for people
-unfamiliar with some of the concepts discussed in this replication.\newline\newline
-In this paper, I make a few additional comments about some key terms to provide
-context in this paper. \newline \newline
+
+\section{Background and Motivation}
+
+In this section of Toy Models of Superpostion\cite{elhage2022toy}, the authors
+provide context and define terms.  In this paper, I make a few additional comments 
+about some of the key ideas and terms the authors discuss. \newline \newline
 \textbf{(1) Defining Features: }The original paper Toy Models of Superpostion
 defines features broadly as "properties of the input which a sufficiently large 
 neural network will reliably dedicate a neuron to representing." The authors do
@@ -85,6 +107,8 @@ superposition is that neural networks 'want to represent more features than they
 have neurons', so they exploit a property of high-dimensional spaces to 
 simulate a model with many more neurons." This is the definition I will used
 throughout this paper.
+
+\section{Demonstrating Superposition}
 
 \bibliographystyle{plain}
 \bibliography{references}
