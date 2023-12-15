@@ -68,8 +68,8 @@ of the original graphic can be found below and the code used to generate it can 
 Although this example only has two neurons (meaning it can be graphed in 2D), in
 future sections we will see how similar aproachs scale nicely to models with more neurons.
 As far as I understand, it is still unclear weather the ideas 
-dicussed in the original paper can be scaled to help understand and identify bias in 
-much larger models such as GTP-4, Claude 2, or Gemini.
+dicussed in the original paper can be scaled to help understand 
+much larger models such as GTP-4 or Claude 2.
 
 
 
@@ -109,6 +109,25 @@ simulate a model with many more neurons." This is the definition I will used
 throughout this paper.
 
 \section{Demonstrating Superposition}
+
+In this section the authors of the original paper demonstrate that superposition
+is observable even in models with more than two neurons (like the ones we saw in
+the introduction). They first study models with 20 inputs and 5 neurons. They
+train a linear model and one with a ReLU activation function. In the ReLU model
+they vary sparsity and observe superposition.\newline\newline
+The authors demonstrate this by graphing $W^TW$ where positive numbers are red
+and negative ones are blue. They also graph the length of each feature (by treating
+each column in $W$ as a vector). Feature that are orthogonal to others in $W$ are
+labeled black. Features that interfere with others are colored yellow.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{demonstrating_superposition/images/anthropic_section3.png}
+    \captionsetup{font=footnotesize} % Set the font size for this caption
+    % \caption{Replicated feature directions example.}
+    \label{fig:section1_replication}
+\end{figure}
+
 
 \bibliographystyle{plain}
 \bibliography{references}
