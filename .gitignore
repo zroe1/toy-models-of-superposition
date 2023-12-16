@@ -1,3 +1,5 @@
+.DS_Store
+
 # Ignore specific LaTeX-generated files
 *.aux
 *.log
