@@ -5,7 +5,7 @@
 \usepackage{caption}
 % \usepackage{hyperref}
 \usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
-
+\usepackage{amsmath}
 
 % Set paragraph indentation to zero
 \setlength{\parindent}{0pt}
@@ -91,16 +91,11 @@ As a result, I propose an alternative definition: features are aspects of the
 input that a neural network represents accuratly with a higher propability than 
 a randomly initialized network. In other words, features are parts of the input 
 that a model determines to be important enough to represent internally.\newline\newline
-\textbf{(2) Role of linear functions in Neural Networks: }The original authors of
-Toy Models of Superpostion strongly emphasize the role of linear functions in
-neural networks. They claim that "Linear representations are the natural format 
-for neural networks to represent information in!" Although this is clearly 
-mostly true, I dont think there is sufficient evidence to justify the confidence 
-of the authors in the original paper. Nonlinearities are also clearly doing lots 
-of useful computation and it seems just as important to study their role in how 
-a neural network represents features from layer to layer. The nonlinearity at 
-each layer of a neural network may be just as important as the linear 
-transformation in understanding how a model makes decisions.\newline\newline
+\textbf{(2) Role of linear Representations in Neural Networks: }The original authors
+of the paper study interpretability by trying to understand the linear representations
+within neural networks. It is worth noting that this isn't the only way to approach
+interpretability research. Understanding the role of non-linearities at each level
+is likely also very important (and perhaps more neglected).\newline\newline
 \textbf{(3) Defining Superposition: } The original paper has a fantastic and
 simple defination for Superposition: "Roughly, the idea of 
 superposition is that neural networks 'want to represent more features than they 
@@ -149,6 +144,21 @@ the red and blue used by the original authors to make it clear whose graphic is
 whose. Similarly, while the original authors use yellow to indicate features in
 superposition in Figure~\ref{fig:section3_anthropic}, I will use blue (hard to
 see in Figure~\ref{fig:relu_linear_0} but will be more obvious going forward).
+
+\subsection{Calculating Superposition}
+
+The models in Figure~\ref{fig:relu_linear_0} do not exibit superposition. They
+encode each five most important features orthogonally (one feature for each
+neuron in the model). Going forward however, we will be investigating models
+that do not behave that way, instead encoding features as vectors that interfere
+with eachother. In order to explain this phenomenon, and describe the graphs in 
+Figure~\ref{fig:sparsity_1} it will be useful to dive a little bit into some
+math.
+
+\begin{equation}
+\text{Interference} = \sum_{j \neq i} (\hat{W}_i \cdot \hat{W}_j)^2
+\end{equation}
+    
 
 \begin{figure}[h]
     \centering
