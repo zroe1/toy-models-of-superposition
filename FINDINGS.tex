@@ -7,6 +7,8 @@
 \usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
 \usepackage{amsmath}
 
+% \emergencystretch=3em
+
 % Set paragraph indentation to zero
 \setlength{\parindent}{0pt}
 
@@ -23,7 +25,7 @@
 \end{center}
 \vspace*{2mm} % adds vertical space before the title
 \noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}}
-\newline
+\vspace*{0mm}
 
 \begin{abstract}
 \begin{quote}
@@ -38,10 +40,7 @@
     training circumstances.
 \end{quote}
 \end{abstract}
-
-
 \section{Introduction}
-
 The orginal paper motivates the idea of superpostion with the following graphic:
 
 \begin{figure}[h]
@@ -51,6 +50,7 @@ The orginal paper motivates the idea of superpostion with the following graphic:
     % \caption{Graphic from Anthropic Paper}
     \label{fig:section1_anthropic}
 \end{figure}
+
 The basic idea is this: if you think of each feature as being represented inside a
 nueral network as a direction, you can graph these directions and observe them.
 In the graphic above, the researchers studied a model with two neurons and five inputs.
@@ -71,10 +71,7 @@ As far as I understand, it is still unclear weather the ideas
 dicussed in the original paper can be scaled to help understand 
 much larger models such as GTP-4 or Claude 2.
 
-
-
 \section{Background and Motivation}
-
 In this section of Toy Models of Superpostion\cite{elhage2022toy}, the authors
 provide context and define terms.  In this paper, I make a few additional comments 
 about some of the key ideas and terms the authors discuss. \newline \newline
@@ -113,7 +110,7 @@ they vary sparsity and observe superposition.\newline\newline
 The authors demonstrate this by graphing $W^TW$ where positive numbers are red
 and negative ones are blue. They also graph the length of each feature (by treating
 each column in $W$ as a vector). Feature that are orthogonal to others in $W$ are
-labeled black. Features that interfere with others are colored yellow.
+labeled black. Features that interfere with others are colored yellow.\\
 
 \begin{figure}[h]
     \centering
@@ -153,18 +150,39 @@ neuron in the model). Going forward however, we will be investigating models
 that do not behave that way, instead encoding features as vectors that interfere
 with eachother. In order to explain this phenomenon, and describe the graphs in 
 Figure~\ref{fig:sparsity_1} it will be useful to dive a little bit into some
-math.
+math. The color of the feature bars at the bottom of Figure~\ref{fig:sparsity_1}
+are determined by the following equation.
 
 \begin{equation}
+\label{eq:my_equation}
 \text{Interference} = \sum_{j \neq i} (\hat{W}_i \cdot \hat{W}_j)^2
 \end{equation}
+
+For a given column $i$ in weight matrix $W$, it calculates interference by taking
+the dot product with every other column in $W$. Non-zero dot products indicate
+that the columns in $W$ are not orthogonal. As a result, summing these dot 
+products gives a general idea of how much the network is representing a given
+feature in superposition. Note that $\hat{W}_i$ is the unit vector for $W_i$. 
+This is necessary because when calculating interference, we are interested in
+the direction of a given feature, not its length.\newline
+
+In Figure~\ref{fig:sparsity_1} the length of a feature (calculated by taking the
+length of the vector $W_i$) determines the lengths of the bars in the feature
+graph. The interference equation (Equation~\ref{eq:my_equation}) determines the
+color of the columns: black indicates a low value for Equation~\ref{eq:my_equation}
+while blue indicates a higher value. Blue bars show that a given feature is represented
+in superposition while black bars indicate that the feature is mapped orthogonally.
     
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.85\linewidth]{demonstrating_superposition/images/sparsity_superposition1.png}
     \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
-    \caption{ADD THIS.}
+    \caption{
+        By varying sparsity, superposition observed in ReLU models. This figure
+        shows three models with increasing sparsity levels. As sparsity is increased, 
+        more features are mapped in superposition.
+    }
     \label{fig:sparsity_1}
 \end{figure}
 
