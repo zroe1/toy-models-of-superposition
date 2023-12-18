@@ -35,9 +35,11 @@
     that neural networks can represent more features than they have demensions. 
     Additionally, they use these so called "toy models" to understand the 
     relationship between how neural networks are trained and how they represent 
-    the data internally. This paper was able to the finding from this paper and 
-    make new observations about "toy models" and how they behave under different 
-    training circumstances.
+    the data internally. The original paper is quite extensive. As a result this
+    paper focuses on making overservations and replicating the most important 
+    results from the  introduction and sections 1, 2, and 3 of the original 
+    paper. This document may be expanded to include more examples or other 
+    sections in the future.
 \end{quote}
 \end{abstract}
 \section{Introduction}
@@ -184,6 +186,18 @@ in superposition while black bars indicate that the feature is mapped orthogonal
         more features are mapped in superposition.
     }
     \label{fig:sparsity_1}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\linewidth]{demonstrating_superposition/images/sparsity_superposition2.png}
+    \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
+    \caption{
+        By increasing sparsity even more, the model represents even more
+        features in superposition.
+    }
+    \label{fig:sparsity_2}
 \end{figure}
 
 \bibliographystyle{plain}
