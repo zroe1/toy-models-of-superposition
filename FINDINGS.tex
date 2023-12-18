@@ -35,11 +35,10 @@
     that neural networks can represent more features than they have demensions. 
     Additionally, they use these so called "toy models" to understand the 
     relationship between how neural networks are trained and how they represent 
-    the data internally. The original paper is quite extensive. As a result this
-    paper focuses on making overservations and replicating the most important 
-    results from the  introduction and sections 1, 2, and 3 of the original 
-    paper. This document may be expanded to include more examples or other 
-    sections in the future.
+    the data internally. The original paper is quite extensive. As a result, this
+    replication focuses on reproducing the most important results from the  
+    introduction and sections 1, 2, and 3 of the original paper. This document 
+    may be expanded to include more examples or other sections in the future.
 \end{quote}
 \end{abstract}
 \section{Introduction}
@@ -56,8 +55,9 @@ The orginal paper motivates the idea of superpostion with the following graphic:
 The basic idea is this: if you think of each feature as being represented inside a
 nueral network as a direction, you can graph these directions and observe them.
 In the graphic above, the researchers studied a model with two neurons and five inputs.
-Recreating this model showed the same results when sparsity was varied. A replication
-of the original graphic can be found below and the code used to generate it can be found \href{http://www.example.com}{here}. 
+Because the models has only 2 neurons, the columns in the weight matrix can be graphed in 2D.
+A replication of the original graphic can be found below and the code used to 
+generate it can be found \href{https://github.com/zroe1/toy_models_of_superposition/blob/main/section_1/section_1.ipynb}{here}. 
 
 \begin{figure}[h]
     \centering
@@ -67,11 +67,13 @@ of the original graphic can be found below and the code used to generate it can 
     \label{fig:section1_replication}
 \end{figure}
 
-Although this example only has two neurons (meaning it can be graphed in 2D), in
-future sections we will see how similar aproachs scale nicely to models with more neurons.
-As far as I understand, it is still unclear weather the ideas 
-dicussed in the original paper can be scaled to help understand 
-much larger models such as GTP-4 or Claude 2.
+Each line in the graph's above is intended to show a model's internal representation
+of a feature. This makes sense becasue each column in the weight matrix
+corresponds to a given input. Although this example only has two neurons (meaning 
+it can be graphed in 2D), in future sections we will see how similar aproachs 
+scale nicely to models with more neurons. As far as I understand, it is still 
+unclear weather the ideas dicussed in the original paper can be scaled to help 
+understand much larger models such as GTP-4 or Claude 2.
 
 \section{Background and Motivation}
 In this section of Toy Models of Superpostion\cite{elhage2022toy}, the authors
