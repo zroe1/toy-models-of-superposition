@@ -53,7 +53,7 @@ The orginal paper motivates the idea of superposition with the following graphic
 \end{figure}
 
 The basic idea is this: if you think of each feature as being represented inside a
-nueral network as a direction, you can graph these directions and observe them.
+neural network as a direction, you can graph these directions and observe them.
 In the graphic above, the researchers studied a model with two neurons and five inputs.
 Because the models has only 2 neurons, the columns in the weight matrix can be graphed in 2D.
 A replication of the original graphic can be found below and the code used to 
@@ -106,38 +106,38 @@ throughout this paper.
 
 \section{Demonstrating Superposition}
 
-In the introduction, the authors of the original paper proved that models with two nuerons could exibit
-superposition (this result was reproduced in Figure~\ref{fig:section3_anthropic}).
+In the introduction, the authors of the original paper proved that models with 
+two neurons could exhibit superposition (this result was reproduced in Figure~\ref{fig:section3_anthropic}).
 In this section, however, the authors demonstrate that superposition
-is also observable in models with more than two neurons. Specifically, they begin by
-exploring a models with 20 inputs and 5 neurons, ultimately proving that the these
-models exibit superposition under centain conditions.\newline
+is also observable in models with more than two neurons. \\
 
-The authors demonstrate this by graphing $W^TW$ for the weight matrix $W$ in a given
-model (showed in Figure~\ref{fig:section3_anthropic}). Positive numbers are red and negative ones are blue. 
-They also graph the length of each feature by treating each column in $W$ as a vector. 
-Features that are orthogonal to others in $W$ are labeled black. Features that 
-occupy similar spaces as other columns in $W$ are colored yellow. In this instance, the authors study a model
-with 20 inputs and 5 neurons.\\
+Specifically, they begin by exploring models with 20 inputs and 5 neurons, 
+ultimately proving that these models exhibit superposition under certain 
+conditions. The authors demonstrate this by graphing $W^TW$ for the weight 
+matrix $W$ in each model (shown in Figure~\ref{fig:section3_anthropic}). 
+They represent positive numbers in the matrix as red and negative ones as blue. They also graph the length 
+of each feature by treating each column in $W$ as a vector. Features that are 
+orthogonal to others in $W$ are labeled black while features that aren't are labeled yellow
+(the exact details for how this is calculated is discussed in \ref{sec:calc_super}).\\
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\linewidth]{demonstrating_superposition/images/anthropic_section3.png}
     \captionsetup{font=footnotesize} % Set the font size for this caption
-    \caption{Demostrating superposition in Toy Models of Superposition \cite{elhage2022toy}}
+    \caption{Graphs linear and ReLU models from Toy Models of Superposition \cite{elhage2022toy}}
     \label{fig:section3_anthropic}
 \end{figure}
 
 In Figure~\ref{fig:section3_anthropic}, the authors study both a linear model
 and a model with a ReLU activation function. They found that both the linear
-and ReLU model did not exibit superpostion in the absence of sparsity. By 
+and ReLU model did not exhibit superposition in the absence of sparsity. By 
 increasing the sparsity of the input, however, the ReLU model begins to clearly 
-exibit superposition.\\ 
+exhibit superposition by ceasing to represent features orthogonally.\\ 
 
 The first step in replicating these findings was to train the linear and ReLU
-models that don't perform computatoin in superposition. The linear model was
+models that don't perform computation in superposition. The linear model was
 defined by $W^TWx + b$ and the ReLU model was defined by ReLU($W^TWx + b$). I trained both models
-with Adam (learning rate = $1*10^{-3}$) on 20,000 batchs of 256 examples.
+with Adam (learning rate = $1*10^{-3}$) on 20,000 batches of 256 examples.
 
 \begin{figure}[h]
     \centering
@@ -148,17 +148,17 @@ with Adam (learning rate = $1*10^{-3}$) on 20,000 batchs of 256 examples.
     \label{fig:relu_linear_0}
 \end{figure}
 
-There are a few small differences between my image and the original images that
-I think are worth noting before moving on. First, I use orange to indicate
-positive numbers and purple to indicate negative numbers. This is different from
-the red and blue used by the original authors to make it clear whose graphic is
-whose. Similarly, while the original authors use yellow to indicate features in
-superposition in Figure~\ref{fig:section3_anthropic}, I will use blue (hard to
-see in Figure~\ref{fig:relu_linear_0} but will be more obvious going forward).
+Note that in Figure~\ref{fig:relu_linear_0}, I use orange to indicate
+positive numbers and purple to indicate negative ones. This is different from
+the red and blue in Figure~\ref{fig:section3_anthropic}, to distinguish my work 
+from that of the original authors. Similarly, while the original authors use 
+yellow to indicate features in superposition, I use blue (This is hard to see in 
+Figure~\ref{fig:relu_linear_0} but it will be more obvious going forward).
 
 \subsection{Calculating Superposition}
+\label{sec:calc_super}
 
-The models in Figure~\ref{fig:relu_linear_0} do not exibit superposition. They
+The models in Figure~\ref{fig:relu_linear_0} do not exhibit superposition. They
 encode each five most important features orthogonally (one feature for each
 neuron in the model). Going forward however, we will be investigating models
 that do not behave that way, instead encoding features as vectors that interfere
