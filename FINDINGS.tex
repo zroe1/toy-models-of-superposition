@@ -106,15 +106,19 @@ throughout this paper.
 
 \section{Demonstrating Superposition}
 
-In this section the authors of the original paper demonstrate that superposition
-is observable even in models with more than two neurons (like the ones we saw in
-the introduction). They first study models with 20 inputs and 5 neurons. They
-train a linear model and one with a ReLU activation function. In the ReLU model
-they vary sparsity and observe superposition.\newline\newline
-The authors demonstrate this by graphing $W^TW$ where positive numbers are red
-and negative ones are blue. They also graph the length of each feature (by treating
-each column in $W$ as a vector). Feature that are orthogonal to others in $W$ are
-labeled black. Features that interfere with others are colored yellow.\\
+In the introduction, the authors of the original paper proved that models with two nuerons could exibit
+superposition (this result was reproduced in Figure~\ref{fig:section3_anthropic}).
+In this section, however, the authors demonstrate that superposition
+is also observable in models with more than two neurons. Specifically, they begin by
+exploring a models with 20 inputs and 5 neurons, ultimately proving that the these
+models exibit superposition under centain conditions.\newline
+
+The authors demonstrate this by graphing $W^TW$ for the weight matrix $W$ in a given
+model (showed in Figure~\ref{fig:section3_anthropic}). Positive numbers are red and negative ones are blue. 
+They also graph the length of each feature by treating each column in $W$ as a vector. 
+Features that are orthogonal to others in $W$ are labeled black. Features that 
+occupy similar spaces as other columns in $W$ are colored yellow. In this instance, the authors study a model
+with 20 inputs and 5 neurons.\\
 
 \begin{figure}[h]
     \centering
@@ -124,10 +128,16 @@ labeled black. Features that interfere with others are colored yellow.\\
     \label{fig:section3_anthropic}
 \end{figure}
 
+In Figure~\ref{fig:section3_anthropic}, the authors study both a linear model
+and a model with a ReLU activation function. They found that both the linear
+and ReLU model did not exibit superpostion in the absence of sparsity. By 
+increasing the sparsity of the input, however, the ReLU model begins to clearly 
+exibit superposition.\\ 
+
 The first step in replicating these findings was to train the linear and ReLU
 models that don't perform computatoin in superposition. The linear model was
 defined by $W^TWx + b$ and the ReLU model was defined by ReLU($W^TWx + b$). I trained both models
-with Adam (learning rate = $1*10^-3$) on 20,000 batchs of 256 examples.
+with Adam (learning rate = $1*10^{-3}$) on 20,000 batchs of 256 examples.
 
 \begin{figure}[h]
     \centering
@@ -180,7 +190,7 @@ in superposition while black bars indicate that the feature is mapped orthogonal
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.85\linewidth]{demonstrating_superposition/images/sparsity_superposition1.png}
+    \includegraphics[width=0.75\linewidth]{demonstrating_superposition/images/sparsity_superposition1.png}
     \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
     \caption{
         By varying sparsity, superposition observed in ReLU models. This figure
@@ -193,7 +203,7 @@ in superposition while black bars indicate that the feature is mapped orthogonal
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.85\linewidth]{demonstrating_superposition/images/sparsity_superposition2.png}
+    \includegraphics[width=0.75\linewidth]{demonstrating_superposition/images/sparsity_superposition2.png}
     \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
     \caption{
         By increasing sparsity even more, the model represents even more
