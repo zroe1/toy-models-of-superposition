@@ -29,20 +29,20 @@
 
 \begin{abstract}
 \begin{quote}
-    Toy Models of Superpostion\cite{elhage2022toy} is a groundbreaking paper published by 
+    Toy Models of Superposition\cite{elhage2022toy} is a groundbreaking paper published by 
     researchers affilated with Anthropic and Harvard University in 2022. By 
     investigating small models with under 100 neurons, the paper demonstrates 
     that neural networks can represent more features than they have demensions. 
-    Additionally, they use these so called "toy models" to understand the 
+    Additionally, they use these so called ``toy models'' to understand the 
     relationship between how neural networks are trained and how they represent 
     the data internally. The original paper is quite extensive. As a result, this
     replication focuses on reproducing the most important results from the  
-    introduction and sections 1, 2, and 3 of the original paper. This document 
+    introduction and sections 1, 2 and 3 of the original paper. This document 
     may be expanded to include more examples or other sections in the future.
 \end{quote}
 \end{abstract}
 \section{Introduction}
-The orginal paper motivates the idea of superpostion with the following graphic:
+The orginal paper motivates the idea of superposition with the following graphic:
 
 \begin{figure}[h]
     \centering
@@ -68,7 +68,7 @@ generate it can be found \href{https://github.com/zroe1/toy_models_of_superposit
 \end{figure}
 
 Each line in the graph's above is intended to show a model's internal representation
-of a feature. This makes sense becasue each column in the weight matrix
+of a feature. This makes sense because each column in the weight matrix
 corresponds to a given input. Although this example only has two neurons (meaning 
 it can be graphed in 2D), in future sections we will see how similar aproachs 
 scale nicely to models with more neurons. As far as I understand, it is still 
@@ -76,32 +76,32 @@ unclear weather the ideas dicussed in the original paper can be scaled to help
 understand much larger models such as GTP-4 or Claude 2.
 
 \section{Background and Motivation}
-In this section of Toy Models of Superpostion\cite{elhage2022toy}, the authors
+In this section of Toy Models of Superposition\cite{elhage2022toy}, the authors
 provide context and define terms.  In this paper, I make a few additional comments 
-about some of the key ideas and terms the authors discuss. \newline \newline
-\textbf{(1) Defining Features: }The original paper Toy Models of Superpostion
-defines features broadly as "properties of the input which a sufficiently large 
-neural network will reliably dedicate a neuron to representing." The authors do
-however describe this definition as "slightly circular" and note that they are
-not "overly attached to it." I find the definition especially problematic because a network that is small or
-has unconventional archetecture may represent a feature that a larger network
-or a network with a more typical archetecture may represent. These 
+about some of the key ideas from this section. \newline \newline
+\textbf{(1) Defining Features: }The original paper Toy Models of Superposition
+defines features broadly as ``properties of the input which a sufficiently large 
+neural network will reliably dedicate a neuron to representing.'' The authors do
+however describe this definition as ``slightly circular'' and note that they are
+not ``overly attached to it.'' I find the definition especially problematic because a network that is small or
+has unconventional architecture may represent a feature that a larger network
+or a network with a more typical architecture may represent. These 
 representations are clearly still features, but are not treated as so under the
 original definition.\newline\newline
 As a result, I propose an alternative definition: features are aspects of the
-input that a neural network represents accuratly with a higher propability than 
+input that a neural network represents accurately with a significantly higher probability than 
 a randomly initialized network. In other words, features are parts of the input 
 that a model determines to be important enough to represent internally.\newline\newline
 \textbf{(2) Role of linear Representations in Neural Networks: }The original authors
 of the paper study interpretability by trying to understand the linear representations
 within neural networks. It is worth noting that this isn't the only way to approach
-interpretability research. Understanding the role of non-linearities at each level
-is likely also very important (and perhaps more neglected).\newline\newline
-\textbf{(3) Defining Superposition: } The original paper has a fantastic and
-simple defination for Superposition: "Roughly, the idea of 
-superposition is that neural networks 'want to represent more features than they 
+mechanistic interpretability research. Understanding the role of non-linearities 
+at each level is likely also very important (and perhaps more neglected).\newline\newline
+\textbf{(3) Defining Superposition: } The original paper has a compelling yet
+simple definition for Superposition: ``Roughly, the idea of 
+superposition is that neural networks `want to represent more features than they 
 have neurons', so they exploit a property of high-dimensional spaces to 
-simulate a model with many more neurons." This is the definition I will used
+simulate a model with many more neurons.'' This is the definition I will use
 throughout this paper.
 
 \section{Demonstrating Superposition}
