@@ -2,14 +2,14 @@
 This repository is replication of the paper Toy Models of Superposition conducted by researchers at Anthropic and Harvard in 2022. This repository includes
 a replication of the experiments from the introduction and sections 2 and 3 of the original paper.
 
-I write up all my findings in a PDF document which can be found under the filename <b>FINDINGS.pdf</b> in this repository. This document details the results
+I write up all my findings in a PDF document which can be found under the filename <b><a href="https://github.com/zroe1/toy_models_of_superposition/blob/main/FINDINGS.pdf">FINDINGS.pdf</a></b> in this repository. This document details the results
 of my experiments along with additional commentary from section 1 of the original paper.
 
 ## What this respository includes
 
 <ol>
   <li>
-    <b>A complete writeup of all my findings: </b> This is found under the filename <b>FINDINGS.pdf</b> in this repository. Because this repository is
+    <b>A complete writeup of all my findings: </b> This is found under the filename <b><a href="https://github.com/zroe1/toy_models_of_superposition/blob/main/FINDINGS.pdf">FINDINGS.pdf</a></b> in this repository. Because this repository is
     dedicated to being a paper replication, it felt natural to write down my findings in the format of a paper so they are all found in
     one place. The LaTeX file used to create the pdf if also provided under the name FINDINGS.tex.
   </li>
@@ -25,7 +25,7 @@ of my experiments along with additional commentary from section 1 of the origina
 
 ## Summary
 
-This summary is a breif overveiw of my findings from FINDINGS.pdf.
+This summary is a breif overveiw of my findings from <b><a href="https://github.com/zroe1/toy_models_of_superposition/blob/main/FINDINGS.pdf">FINDINGS.pdf</a></b>.
 
 ### Introduction:
 
