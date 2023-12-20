@@ -38,8 +38,7 @@
     the data internally. The original paper is quite extensive. As a result, this
     replication focuses on reproducing the most important results from the  
     introduction and sections 2 and 3 of the original paper. It also includes some
-    comentary on section 1. This document may be expanded to include more 
-    examples or other sections in the future.
+    comentary on section 1.
 \end{quote}
 \end{abstract}
 \section{Introduction}
@@ -142,7 +141,8 @@ exhibit superposition by ceasing to represent features orthogonally.\\
 
 The first step in replicating these findings was to train the linear and ReLU
 models that don't perform computation in superposition. The linear model was
-defined by $W^TWx + b$ and the ReLU model was defined by ReLU($W^TWx + b$). Both 
+defined by $W^TWx + b$ and the ReLU model was defined by ReLU($W^TWx + b$). The
+objective of each model was to reconstruct the input $x$. Both 
 models were trained with the Adam optimizer (learning rate = $1*10^{-3}$) on 
 20,000 batches of 256 examples.
 
@@ -167,12 +167,17 @@ Figure~\ref{fig:relu_linear_0} but it will be more obvious going forward).
 
 The models in Figure~\ref{fig:relu_linear_0} do not exhibit superposition. They
 encode the five most important features orthogonally (one feature for each
-neuron in the model). Going forward however, we will be investigating models
+neuron in the model). In this section, we will be investigating models
 that do not behave in this way, instead encoding features as vectors that interfere
-with eachother. In order to explain this phenomenon and describe the graphs in 
-Figure~\ref{fig:sparsity_1}, it will be useful to dive a the math behind the
-concept of feature interference. The extent to which features interfere with
-eachother is defined by the following equation:
+with eachother. The model explored in this section have the same architecture
+and objective as the models in Figure~\ref{fig:relu_linear_0}. The difference
+is that the models in this section are trained on sparse input data and, as a
+result, map features interally in superposition. \\
+
+In order to explain this phenomenon and demonstate how models with sparse input
+are able to represent features in superpostion, it will be useful to dive into 
+the math behind the concept of feature interference. The extent to which 
+features interfere with eachother is defined by the following equation:
 
 \begin{equation}
 \label{eq:my_equation}
@@ -202,11 +207,27 @@ in superposition while black bars indicate that the feature is mapped orthogonal
     \caption{
         By varying sparsity, superposition observed in ReLU models. This figure
         shows three models with increasing sparsity levels. As sparsity is increased, 
-        more features are mapped in superposition.
+        fewer features are mapped orthogonally.
     }
     \label{fig:sparsity_1}
 \end{figure}
 
+Unlike the models with 0\% sparsity in Figure~\ref{fig:sparsity_1}, the models
+in Figure~\ref{fig:sparsity_1} have higher levels of sparsity and, as
+a result, leverage superposition. The bottom half of Figure~\ref{fig:sparsity_1}
+shows that these models represent far many more features than the models in
+Figure~\ref{fig:sparsity_1}, but by doing so, they are forced to represent many 
+of their features in superposition. The models only have 5 neurons so if they 
+``want'' to represent more than 5 features, they can't represent each feature 
+orthogonally. This tradeoff is intuatively more attractive when the model is
+trained on sparse inputs becase it is less likely that the model will be fed
+a combination of inputs that cause feature representations to conflict (because
+a significant percentage of the input is 0).
+
+
+\subsection{Models Trained on Very Sparse Data}
+
+The illustrations in figures \ref{fig:relu_linear_0} and 
 
 \begin{figure}[h]
     \centering
