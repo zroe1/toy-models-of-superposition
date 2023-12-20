@@ -143,7 +143,7 @@ orthogonal to others in $W$ are labeled black while features that aren't are lab
     \centering
     \includegraphics[width=0.9\linewidth]{demonstrating_superposition/images/anthropic_section3.png}
     \captionsetup{font=footnotesize} % Set the font size for this caption
-    \caption{Graphs linear and ReLU models from \textit{Toy Models of Superposition}\cite{elhage2022toy}}
+    \caption{Superposition in linear and ReLU models from \textit{Toy Models of Superposition}\cite{elhage2022toy}}
     \label{fig:section3_anthropic}
 \end{figure}
 
@@ -272,7 +272,31 @@ The feature representations, shown in the bottom have of Figure~\ref{fig:sparsit
 are also consistent with the the findings of \textit{Toy Models of Superposition}.
 Like the investigation from the original paper, these feature representations 
 show no features mapped orthogonally (recall that features that interfere with
-eachother are shown in blue).
+eachother are shown in blue). \\
+
+\subsection{Scaling Results to Larger Models}
+
+In the previous subsections, we have explored superposition in models with 5
+neurons and 20 inputs. This proves that the phenomenon we observed in Figure~\ref{fig:sparsity_2}
+applies to models with more than 2 neurons. The original paper expanded this 
+finding by also studying models with 20 neurons and 80 inputs (Figure~\ref{fig:section3_anthropic2}). \\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.99\linewidth]{demonstrating_superposition/images/anthropic_section3_part2.png}
+    \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
+    \caption{
+        Superposition in models with 20 neurons and 80 inputs from \textit{Toy Models of Superposition}\cite{elhage2022toy}
+    }
+    \label{fig:section3_anthropic2}
+\end{figure}
+
+They original authors report that this experiment produced ``qualitatively similar''
+results compared to models with 5 neurons and 20 inputs which we have explored
+in the previous subsections. Because this experiment is almost identical to the
+previous ones, and becasue I would not expect to find results that conflict
+with the original paper, I have excluded this experiment from this replication
+for simplicity.
 
 \bibliographystyle{plain}
 \bibliography{references}
