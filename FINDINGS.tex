@@ -217,20 +217,24 @@ in superposition while black bars indicate that the feature is mapped orthogonal
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.75\linewidth]{demonstrating_superposition/images/sparsity_superposition1.png}
-    \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
+    \captionsetup{font=footnotesize, width=0.71\linewidth} % Set the font size for this caption
     \caption{
-        By varying sparsity, superposition observed in ReLU models. This figure
-        shows three models with increasing sparsity levels. As sparsity is increased, 
-        fewer features are mapped orthogonally.
+        Superposition is observed in models trained on 70\%, 90\% and 97\% 
+        sparse inputs (code to generate these figures can be found 
+        \href{https://github.com/zroe1/toy_models_of_superposition/blob/main/section_1/section_1.ipynb}{here}). 
+        The 70\% and 90\% sparse models were trained on 50,000 batches of 256 
+        examples with the ``RMSProp'' optimizer (learning rate = $10^{-2}$). The 
+        97\% sparsity model was trained on 100,000 batches of 256 examples using 
+        the Adam opimizer (learning rate = $10^{-2}$).
     }
     \label{fig:sparsity_1}
 \end{figure}
 
-Unlike the models with 0\% sparsity in Figure~\ref{fig:sparsity_1}, the models
+Unlike the models with 0\% sparsity in Figure~\ref{fig:relu_linear_0}, the models
 in Figure~\ref{fig:sparsity_1} have higher levels of sparsity and, as
 a result, leverage superposition. The bottom half of Figure~\ref{fig:sparsity_1}
 shows that these models represent far many more features than the models in
-Figure~\ref{fig:sparsity_1}, but by doing so, they are forced to represent many 
+Figure~\ref{fig:relu_linear_0}, but by doing so, they are forced to represent many 
 of their features in superposition. The models only have 5 neurons so if they 
 ``want'' to represent more than 5 features, they can't represent each feature 
 orthogonally. This tradeoff is intuatively more attractive when the model is
@@ -241,18 +245,34 @@ a significant percentage of the input is 0).
 
 \subsection{Models Trained on Very Sparse Data}
 
-The illustrations in figures \ref{fig:relu_linear_0} and 
+As sparsity is increased to almost 100\% the models stop representing any features
+orthogonally. This is displayed in Figure~\ref{fig:sparsity_2} where models are
+trained on 99\%, 99.7\% and 99.9\% sparse inputs.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.75\linewidth]{demonstrating_superposition/images/sparsity_superposition2.png}
     \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
     \caption{
-        By increasing sparsity even more, the model represents even more
-        features in superposition.
+        When models are trained on sufficiently sparse data, all feature
+        representations are in superposition. The models in the figure were
+        trained on 100,000 batches of 256 examples using the Adam opimizer 
+        (learning rate = $10^{-2}$).
     }
     \label{fig:sparsity_2}
 \end{figure}
+
+The representations of $W^{T}W$ of these very sparse models (shown in the top
+half of Figure~\ref{fig:sparsity_2}) is far less clean than previous
+representations we have seen. This is the same trend the original authors
+found when increasing sparsity of these models (Figure~\ref{fig:section3_anthropic}
+illustrates how the original authors displayed this visually). \\
+
+The feature representations, shown in the bottom have of Figure~\ref{fig:sparsity_2},
+are also consistent with the the findings of \textit{Toy Models of Superposition}.
+Like the investigation from the original paper, these feature representations 
+show no features mapped orthogonally (recall that features that interfere with
+eachother are shown in blue).
 
 \bibliographystyle{plain}
 \bibliography{references}
