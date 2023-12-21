@@ -1,5 +1,5 @@
 \documentclass{article} % This line defines the type of document. 'article' is a common class for small documents.
-\usepackage[margin=1.3in]{geometry}
+\usepackage[margin=1.15in]{geometry}
 \usepackage{graphicx}
 \usepackage{titlesec}
 \usepackage{caption}
@@ -43,33 +43,36 @@
 
 \begin{abstract}
 \begin{quote}
-    \textit{Toy Models of Superposition}\cite{elhage2022toy} is a groundbreaking paper published by 
-    researchers affilated with Anthropic and Harvard University in 2022. By 
+    \textit{Toy Models of Superposition}\cite{elhage2022toy} is a groundbreaking 
+    paper published by researchers affilated with Anthropic and Harvard University in 2022. By 
     investigating small models with under 100 neurons, the paper demonstrates 
-    that neural networks can represent more features than they have demensions. 
+    that neural networks can represent more features than they have dimensions. 
     Additionally, they use these so called ``toy models'' to understand the 
     relationship between how neural networks are trained and how they represent 
-    the data internally. The original paper is quite extensive. As a result, this
-    replication focuses on reproducing the most important results from the  
-    introduction and sections 2 and 3 of the original paper. It also includes some
-    comentary on section 1.
+    the data internally. The becasue the paper is quite extensive, this
+    replication only focuses on reproducing the most important results from the  
+    introduction and sections 2 and 3 of the original paper. It also includes 
+    some comentary on section 1.
 \end{quote}
 \end{abstract}
 \section{Introduction}
-The orginal paper motivates the idea of superposition with the following graphic:
+\textit{Toy Models of Superposition} motivates the idea of superposition with the following graphic:
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.55\linewidth]{section_1/images/section1_anthropic_graphic_.png}
     \captionsetup{font=footnotesize} % Set the font size for this caption
-    % \caption{Graphic from Anthropic Paper}
+    \caption{
+        Graphic from \textit{Toy Models of Superposition} showing superposition
+        in 2D.
+    }
     \label{fig:section1_anthropic}
 \end{figure}
 
 The basic idea is this: if you think of each feature as being represented inside of a
 neural network by a direction, you can graph these directions and observe them.
-By doing this, the authors of the original paper demonstrate that the way
-a model maps features as directions depends on the sparsity of it's training data.
+By doing this, the authors of \textit{Toy Models of Superposition} demonstate that
+the internal struture of a model depends on the sparsity of it's training data.
 A replication of this phenomenon can be found below and the code used to 
 generate it can be found 
 \href{https://github.com/zroe1/toy_models_of_superposition/blob/main/section_1/section_1.ipynb}{here}.\\ 
@@ -78,39 +81,37 @@ generate it can be found
     \centering
     \includegraphics[width=0.6\linewidth]{section_1/images/section1_replicated_graphic.png}
     \captionsetup{font=footnotesize} % Set the font size for this caption
-    \caption{Graphing superposition in 2D.}
+    \caption{Replication of Figure~\ref{fig:section1_anthropic}}
     \label{fig:section1_replication}
 \end{figure}
 
 The model studied in  Figure~\ref{fig:section1_replication} is designed such that 
-each column in the weight matrix corresponds to a  given input. Becasuse the weight
-matrix only represents 2 neurons, the columns of the matrix can be graphed in
-2D. As a result, it is trivial to plot the columns as 2D vectors (each representing 
-individual features of the input). Obersving these vectors while increasing the 
-sparsity of the model's input reveals
-that the model can be trained to represent many more features than it has dimensions
-(despite having only 2 neurons, the model in Figure~\ref{fig:section1_replication} 
-can represent up to 5 features!). This is what the authors call "superposition." In 
-future sections we will study superposition extensivly and produce the phenomenon
-in larger networks.
+each column in the weight matrix corresponds to a  given input. The weight
+matrix in this example contains only 2 neurons, so each column can be graphed as
+as 2D vector. Obersving these vectors while increasing the sparsity of the model's input reveals
+that the model can represent five features despite having only 2 neurons. This 
+kind of representation is what the authors call "superposition." In future sections we will study 
+superposition extensivly and reproduce this phenomenon in larger networks.
 
 \section{Background and Motivation}
-In this section of \textit{Toy Models of Superposition}, the authors
-provide context and define terms.  In this paper, I make a few additional comments 
-about some of the key ideas from this section. \newline \newline
+
+Before studying superposition in detail, the authors of  \textit{Toy Models of Superposition}, 
+provide context by explaining concepts and defining terms. In this section, I 
+provide some additional comentary on the definitions and explanations the authors use. \\
+
 \textbf{(1) Defining Features: }\textit{Toy Models of Superposition}
 defines features broadly as ``properties of the input which a sufficiently large 
 neural network will reliably dedicate a neuron to representing.'' The authors do
 however describe this definition as ``slightly circular'' and note that they are
-not ``overly attached to it.'' I find the definition especially problematic because a network that is small or
-has unconventional architecture may represent a feature that a larger network
-or a network with a more typical architecture may ignore. These 
-representations are clearly still features, but are not treated as so under the
-original definition.\newline\newline
-As a result, I propose an alternative definition: features are aspects of the
-input that a neural network represents accurately with a significantly higher probability than 
+not ``overly attached to it.'' I find the definition especially problematic because 
+certain archietctures may be incentivized to ignore an aspect of the input that 
+differently designed models may "want" to internally represent. It is unclear to me weather
+there is sufficent evidence to support the idea of a sort of ground truth for 
+features. As a result, I propose an alternative definition: features are aspects 
+of the input that a neural network represents accurately with a significantly higher probability than 
 a randomly initialized network. In other words, features are parts of the input 
-that a model determines to be important enough to represent internally.\newline\newline
+that a model determines to be important enough to represent internally.\\
+
 \textbf{(2) Role of Linear Representations in Neural Networks: }The original authors
 of the paper study interpretability by trying to understand the linear representations
 within neural networks. It is worth noting that this isn't the only way to approach
@@ -127,16 +128,24 @@ throughout this paper.
 
 In the introduction, the authors of the original paper proved that models with 
 two neurons could exhibit superposition (this result was reproduced in Figure~\ref{fig:section1_replication}).
-In this section, however, the authors demonstrate that superposition
-is also observed in models with more than two neurons. \\
+Later in the paper, however, the authors demonstrate that superposition
+is also observed in models with more than two neurons. Specifically they begin 
+by exploring two models with a weight matrix $W_{5 \times 20}$: a linear model defined by 
+$W^TWx + b$ and a ReLU model defined by ReLU($W^TWx + b$). The objective of both
+models was to reconstruct the input $x$. The authors used a weighted mean squared
+error loss function making accurately representing some features more important
+than others. For more information about the loss see section 2 of the original
+paper.\\
 
-Specifically, they begin by exploring models with 20 inputs and 5 neurons, 
-ultimately proving that these models exhibit superposition under certain 
-conditions. The authors demonstrate this by graphing $W^TW$ for the weight 
-matrix $W$ in each model (shown in Figure~\ref{fig:section3_anthropic}). 
-They represent positive numbers in the matrix as red and negative ones as blue. They also graph the length 
-of each feature by treating each column in $W$ as a vector. Features that are 
-orthogonal to others in $W$ are labeled black while features that aren't are labeled yellow
+While the model without an activation function appears to only represent features
+orthogonally, the authors claim that the ReLU model can exibit superposition
+if it is trained on sparse enough data. Becuase we defined each weight matrix with 5 neurons ($W_{5 \times 20}$)
+this claim cannot be validated by graphing features in 2D like in Figure~\ref{fig:section1_replication}. 
+But by graphing $W^TW$, superposition in the ReLU model can be shown visually in Figure~\ref{fig:section3_anthropic}. 
+In this figure, positive numbers in the matrix $W^TW$ are labeled red while 
+negative ones are colored blue. They also graph the length of each feature by treating 
+each column in $W$ as a vector. Features that are orthogonal to others in $W$ are 
+labeled black while features that aren't are labeled yellow
 (the exact details for how this is calculated is discussed in \ref{sec:calc_super}).\\
 
 \begin{figure}[h]
@@ -147,15 +156,17 @@ orthogonal to others in $W$ are labeled black while features that aren't are lab
     \label{fig:section3_anthropic}
 \end{figure}
 
-In Figure~\ref{fig:section3_anthropic}, the authors study both a linear model
-and a model with a ReLU activation function. They found that both the linear
-and ReLU model did not exhibit superposition in the absence of sparsity. By 
-increasing the sparsity of the input, however, the ReLU model begins to clearly 
-exhibit superposition by ceasing to represent features orthogonally.\\ 
+Tthe visualisation of $W^{T}W$ (top of Figure~\ref{fig:section3_anthropic}) and the 
+chart of feature representations (bottom of the figure) both show that by increasing sparsity, the 
+ReLU model ceases to represent features orthogonally. The yellow bars shown in the models
+on the right side of the figure illustrate that the model maps all it's features 
+in superposition. This is also shown in the graphs of the weight matrices $W^{T}W$ for
+sparse models in Figure~\ref{fig:section3_anthropic}. These 
+representations appear to show the model embedding more than 5 features, but 
+the representation is noisy.\\ 
 
 The first step in replicating these findings was to train the linear and ReLU
-models that don't perform computation in superposition. The linear model was
-defined by $W^TWx + b$ and the ReLU model was defined by ReLU($W^TWx + b$). The
+models that don't perform computation in superposition. The
 objective of each model was to reconstruct the input $x$. Both 
 models were trained with the Adam optimizer (learning rate = $1*10^{-3}$) on 
 20,000 batches of 256 examples.
@@ -164,8 +175,8 @@ models were trained with the Adam optimizer (learning rate = $1*10^{-3}$) on
     \centering
     \includegraphics[width=0.4\linewidth]{demonstrating_superposition/images/relu_linear_0_sparsity.png}
     \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
-    \caption{The generated graphics show that the model uses each of its five 
-    dimensions to graph the 5 most important features orthogonally.}
+    \caption{The generated graphics show that linear and ReLU models trained on
+    dense inputs represent only five features (one for each dimension in the model).}
     \label{fig:relu_linear_0}
 \end{figure}
 
@@ -297,6 +308,20 @@ in the previous subsections. Because this experiment is almost identical to the
 previous ones, and becasue I would not expect to find results that conflict
 with the original paper, I have excluded this experiment from this replication
 for simplicity.
+
+\section{Superposition as a Phase Change}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.99\linewidth]{phase_changes/images/phase_changes_anthropic.png}
+    \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
+    \caption{
+        Theoretical and empirical superposition in one neuron models in 
+        \textit{Toy Models of Superposition}\cite{elhage2022toy}
+    }
+    \label{fig:section4_anthropic}
+\end{figure}
+
 
 \bibliographystyle{plain}
 \bibliography{references}
