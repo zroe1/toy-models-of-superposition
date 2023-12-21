@@ -56,3 +56,9 @@ if there is no sparsity in the input, the model encodes the two most important f
 <img width="600" alt="sparsity_superposition2" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/560eb12f-c248-4888-b40b-712aec6ed96a">
 </p>
 
+### Phase changes:
+
+<p align="center">
+<img width="565" alt="phase_changes_replication" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/7e6ba16b-bfe6-4ff4-a3aa-a64bcf7b345b">
+</p>
+
