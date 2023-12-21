@@ -49,7 +49,7 @@
     that neural networks can represent more features than they have dimensions. 
     Additionally, they use these so called ``toy models'' to understand the 
     relationship between how neural networks are trained and how they represent 
-    the data internally. The becasue the paper is quite extensive, this
+    the data internally. Becasue the paper is quite extensive, this
     replication only focuses on reproducing the most important results from the  
     introduction and sections 2 and 3 of the original paper. It also includes 
     some comentary on section 1.
@@ -156,7 +156,7 @@ labeled black while features that aren't are labeled yellow
     \label{fig:section3_anthropic}
 \end{figure}
 
-Tthe visualisation of $W^{T}W$ (top of Figure~\ref{fig:section3_anthropic}) and the 
+The visualisation of $W^{T}W$ (top of Figure~\ref{fig:section3_anthropic}) and the 
 chart of feature representations (bottom of the figure) both show that by increasing sparsity, the 
 ReLU model ceases to represent features orthogonally. The yellow bars shown in the models
 on the right side of the figure illustrate that the model maps all it's features 
@@ -175,14 +175,14 @@ models were trained with the Adam optimizer (learning rate = $1*10^{-3}$) on
     \centering
     \includegraphics[width=0.4\linewidth]{demonstrating_superposition/images/relu_linear_0_sparsity.png}
     \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
-    \caption{The generated graphics show that linear and ReLU models trained on
+    \caption{The generated graphics show that the linear and ReLU models trained on
     dense inputs represent only five features (one for each dimension in the model).}
     \label{fig:relu_linear_0}
 \end{figure}
 
 Note that in Figure~\ref{fig:relu_linear_0}, I use orange to indicate
 positive numbers and purple to indicate negative ones. This is different from
-the red and blue in Figure~\ref{fig:section3_anthropic}, to distinguish my work 
+the red and blue in Figure~\ref{fig:section3_anthropic} to distinguish my work 
 from that of the original authors. Similarly, while the original authors use 
 yellow to indicate features in superposition, I use blue (This is hard to see in 
 Figure~\ref{fig:relu_linear_0} but it will be more obvious going forward).
@@ -194,7 +194,7 @@ The models in Figure~\ref{fig:relu_linear_0} do not exhibit superposition. They
 encode the five most important features orthogonally (one feature for each
 neuron in the model). In this section, we will be investigating models
 that do not behave in this way, instead encoding features as vectors that interfere
-with eachother. The model explored in this section have the same architecture
+with eachother. The model explored in this section is defined by the same architecture
 and objective as the models in Figure~\ref{fig:relu_linear_0}. The difference
 is that the models in this section are trained on sparse input data and, as a
 result, map features interally in superposition. \\
@@ -303,11 +303,10 @@ finding by also studying models with 20 neurons and 80 inputs (Figure~\ref{fig:s
 \end{figure}
 
 They original authors report that this experiment produced ``qualitatively similar''
-results compared to models with 5 neurons and 20 inputs which we have explored
-in the previous subsections. Because this experiment is almost identical to the
-previous ones, and becasue I would not expect to find results that conflict
-with the original paper, I have excluded this experiment from this replication
-for simplicity.
+results compared to the models with 5 neurons and 20 inputs. Because this experiment 
+is almost identical to the previous ones, and becasue I would not expect to find 
+results that conflict with the original paper, I have excluded this experiment 
+from this replication. \\
 
 \section{Superposition as a Phase Change}
 
