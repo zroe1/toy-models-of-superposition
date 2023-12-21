@@ -310,6 +310,17 @@ from this replication. \\
 
 \section{Superposition as a Phase Change}
 
+The author's of \textit{Toy Models of Superposition} claim that superposition
+can be thought of as a a kind of ``phase change.'' Figure~\ref{fig:section4_anthropic}
+shows a phase diagram for a single neuron model with 2 inputs. The model studied is
+defined by ReLU($W^TWx + b$) and is trained to simply reconstruct it's input. The loss 
+function used was a weighted mean squared error loss where the 
+importance of the first output is always one and the importance of 
+the second output is varied between 0.1 and 10. The relative importance of this
+second output is the x-axis for the graphs in Figure~\ref{fig:section4_anthropic}.
+The y-axis represents the model's feature density - in other words, the probability
+that a given input is not zero.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.99\linewidth]{phase_changes/images/phase_changes_anthropic.png}
@@ -321,6 +332,45 @@ from this replication. \\
     \label{fig:section4_anthropic}
 \end{figure}
 
+These phase diagrams present three discreet posibilities for the way this single
+neuron model represents it's input internally. The first posibility is the model 
+\textit{only} represents the first input. In this case $W = [1, 0]$ (shown in
+grey in Figure~\ref{fig:section4_anthropic}). The oppositve option is also a 
+possibility: the model could only embed the second feature making $W = [0, 1]$ 
+(shown in blue). The third possibility is the model could represent \textit{both}
+features by making $W = [1, -1]$ (shown in red). \\
+
+The authors claim it is possible to calculate theorically losses based on sparisty,
+realative feature importance, and the weight matrix $W$ for each of these models. 
+\textit{Toy Models of Superposition} links notebook which specifies
+the equations for calculating these theorical losses in 3 dimesions, but they
+should work exactly the same in this 2 dimensional example:
+
+\begin{equation}
+    \label{eq:loss1}
+    \text{Loss for when  $W$ is $[1, 0]$} = \frac{s}{3} - \frac{s^2}{4}
+\end{equation}
+
+\begin{equation}
+    \label{eq:loss2}
+    \text{Loss for when  $W$ is $[0, 1]$} = r \left(\frac{s}{3} - \frac{s^2}{4}\right)
+\end{equation}
+
+\begin{equation}
+    \label{eq:loss3}
+    \text{Loss for when  $W$ is $[1, -1]$} = \frac{(1 + r)s^2}{6}
+\end{equation}
+
+The variable $r$ is the relative importance of the second feature. The variable
+$s$ is the feature density \textit{not} the sparsity of the input. For information
+about how these equations were derived, visit this notebook provided by the authors.
+Based on the sparsity of the input and the relitive feature
+importance of the second input, the authors were able to plot which weight configuration
+would theoretially lead to the lowest loss in Figure~\ref{fig:section4_anthropic}.
+They were then able to train models and average the results to show that the
+same pattern emerges imperically when training models with gradient descent.
+
+\subsection{Replicating Superposition as a Phase Change}
 
 \bibliographystyle{plain}
 \bibliography{references}
