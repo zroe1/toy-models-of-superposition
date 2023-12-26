@@ -312,9 +312,9 @@ from this replication. \\
 
 The author's of \textit{Toy Models of Superposition} claim that superposition
 can be thought of as a a kind of ``phase change.'' Figure~\ref{fig:section4_anthropic}
-shows a phase diagram for a single neuron model with 2 inputs. The model studied is
-defined by ReLU($W^TWx + b$) and is trained to simply reconstruct it's input. The loss 
-function used was a weighted mean squared error loss where the 
+shows a phase diagram for a single neuron model with 2 inputs. The models studied were
+defined by ReLU($W^TWx + b$) and trained to simply reconstruct their inputs. The loss 
+function used was a weighted mean squared error where the 
 importance of the first output is always one and the importance of 
 the second output is varied between 0.1 and 10. The relative importance of this
 second output is the x-axis for the graphs in Figure~\ref{fig:section4_anthropic}.
@@ -334,7 +334,7 @@ that a given input is not zero.
 
 These phase diagrams present three discreet posibilities for the way this single
 neuron model represents it's input internally. The first posibility is the model 
-\textit{only} represents the first input. In this case $W = [1, 0]$ (shown in
+\textit{only} represents the first input. In this case the weight matrix $W = [1, 0]$ (shown in
 grey in Figure~\ref{fig:section4_anthropic}). The oppositve option is also a 
 possibility: the model could only embed the second feature making $W = [0, 1]$ 
 (shown in blue). The third possibility is the model could represent \textit{both}
@@ -362,7 +362,7 @@ should work exactly the same in this 2 dimensional example:
 \end{equation}
 
 The variable $r$ is the relative importance of the second feature. The variable
-$s$ is the feature density \textit{not} the sparsity of the input. For information
+$s$ is the feature density---in other words, 1 - sparsity. For information
 about how these equations were derived, visit this notebook provided by the authors.
 Based on the sparsity of the input and the relitive feature
 importance of the second input, the authors were able to plot which weight configuration
@@ -371,6 +371,12 @@ They were then able to train models and average the results to show that the
 same pattern emerges imperically when training models with gradient descent.
 
 \subsection{Replicating Superposition as a Phase Change}
+
+Replicating the findings from \textit{Toy Models of Superposition} in the
+previous subsection was a complex process that it described in detail in the
+succeeding sections. Figure~\ref{fig:phase_changes_replication} is a visual
+summary of my findings. It will be refered to in the subsections below as a
+way to clarify my claims.
 
 \begin{figure}[h]
     \centering
@@ -381,6 +387,26 @@ same pattern emerges imperically when training models with gradient descent.
     }
     \label{fig:phase_changes_replication}
 \end{figure}
+
+\subsection{Replicating Theoretical Predictions}
+
+By using Equation~\ref{eq:loss1}, Equation~\ref{eq:loss1} and Equation~\ref{eq:loss1}
+I was able to replicate the theorical phase diagram in
+\textit{Toy Models of Superposition}.
+The careful reader however, will notice that the theoretical prediction in
+Figure~\ref{fig:section4_anthropic} (graphic from \textit{Toy Models of 
+Superposition}) looks more choppy than the one in Figure~\ref{fig:phase_changes_replication} (graphic
+generated for this replication). This is because in the theoretical prediction I 
+generated, steps between each value on the x-axis is much larger. This however is
+intentional and is benificial for two reasons. First, by creating larger steps 
+between numbers on
+the x-axis, I was able to intentionally tweak the step size to make the numbers
+easiest to work with when generating the graph. It is also benificaial because
+larger step sizes means that the graph includes far fewer theoretical
+models. This meant that making a emperical version of the theoretical graph 
+required training fewer real models. Because my current setup is very 
+compute-contrained, this made performing the tasks in the following subsections
+much more managable. 
 
 \bibliographystyle{plain}
 \bibliography{references}
