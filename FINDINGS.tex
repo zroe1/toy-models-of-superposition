@@ -395,6 +395,11 @@ way to clarify my claims.
     \label{fig:phase_changes_replication}
 \end{figure}
 
+Note that the x axis of the graphs in figure~\ref{fig:phase_changes_replication}
+represents the relative ``importance'' of the second output when calculating the
+loss. They y axis represents the ``feature density'' of a model's training data
+(that is 1 - sparsity).
+
 \subsection{Replicating Theoretical Predictions}
 
 By using equations~\ref{eq:loss1}, \ref{eq:loss2} and \ref{eq:loss3},
@@ -455,13 +460,13 @@ leveraging features like parallel operations. \\
 Another thing I did to make training more efficient was to initalize the weights and
 biases in a way that helps each model reduce it's loss faster and avoid local minima.
 I found it to be highly benificaial to initalize the weights using a normal 
-distribution with a standard deviation of 1.5 instead of a stardard deviation of
+distribution with a standard deviation of 1.5 instead of
 1.0 (which perhaps would be a more natural choice in this kind of setup). This change
 makes sense because 
 in theory, the model should ``want'' to make each item in it's weight matrix
 either 1 or -1. Increasing the standard devation puts more numbers around this range.
 Similarly, I found that it is advantagous to decrease the standard deviation of the
-bias parameters from 1 to 0.5. This makes intuitive sense in this experiment because
+bias parameters from 1 to 0.5. This makes intuitive sense because
 there is no case where the one-neuron models should ``want'' to have large bias values.
 It is worth noting that initalizing the weights and biases in this way does
 not eliminate the need for the models to be trained using gradient descent.
@@ -483,7 +488,7 @@ but to rather help the models achieve lower losses and train more efficiently.
     \label{fig:relu_loss}
 \end{figure}
 
-The overall result of this training is shown below compared with the findings
+The overall result of this training is shown below and compared with the findings
 from \textit{Toy Models of Superposition}. Both diagrams show
 the empirical result of training one-neuron ReLU toy models.
 
@@ -502,8 +507,9 @@ the empirical result of training one-neuron ReLU toy models.
 Although there are a few clear differences between the graphs in
 figure~\ref{fig:relu_empirical}, the results are similar in the way that they
 each illustrate
-analogous overall trends. When the second output has a very low level of relative feature
-importance and overall feature density is high, the one-neuron ReLU models tend to represent
+analogous overall trends. When a one-nueron ReLU model is trained with high feature
+density and with a loss that allocates a very low level of relative
+importance to the second output, the model tends to represent
 only the first input interally ($W \approx [1, 0]$). If the second feature has 
 a high relative importance, only the second input is represented
 in $W$ ($W \approx [0, 1]$). As the feature density of the model's training data
@@ -532,17 +538,53 @@ If $W$ represented neither or both, I skiped it. At the end of training, if more
 than half of the models trained at a given point mapped only the first feauture,
 that point was colored orange on the resulting graph. If more than half the models
 mapped only the second feature,
-the point was colored purple. Using this mehtod may have been more strict than
+the point was colored purple. Using this method may have been more strict than
 the tactics used by the original authors making my graph more bare and less similar to the
 theoretical predictions.\\
 
 Another factor that could have led to a discrepency between the theoretical and
-and empirical findings may have been the non-ideal environment the
+and empirical findings may have been the non-ideal environment in which
 one-neuron ReLU models were trained in. Because my setup is compute-constrained,
 I was not able to iterate and experiment as much as I wish I could have in training 
 the models. As a result, I expect the loss I acheived could have been significantly
 lower in an ideal training environment.
 
+\subsection{Training 100,000 Linear Models}
+
+In addition to training a ground of one-neuron ReLU models, I also trained a group
+without an activation function. Unlike the group of ReLU models in the previous
+section, I only trained each linear model once. This proved to be enought to get
+a general idea of how the models behave in practice. \\
+
+In theory these linear models should not exibit superposition. It is in the best
+interest of these linear models to represent only one feature in the weight matrix---
+that is $W$ should be $[1,0]$ or $[0, 1]$. In practice, however,
+these linear models do not always do exactly what they ``should'' do. Although were trained
+extensively---6,000 batchs of 128 examples---they typically did not do what would
+limit the loss the most in theory. The outcome looked like 
+figure~\ref{fig:linear_phases} where the x-axis is once again relative feature
+importance of the second output and the y axis is feature density of the training
+data.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\linewidth]{phase_changes/images/linear_phases.png}
+    \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
+    \caption{
+        Empirical losses for one-neuron linear toy models.
+    }
+    \label{fig:linear_phases}
+\end{figure}
+
+This example shows something somewhat obvious: even if a model doesn't always do
+what is most advantagous for it, it is more likly to do the things it
+is encentivized to do. In theory this graph should be all orange and purple. In
+practice, however, it only maps features like $[1, 0]$ or $[0, 1]$ when it is
+highly favorable. This illustrates a limitation of the research of \textit{Toy 
+Models of Superposition}: in practice it can be fairly complex to predict weather
+a model should represent a feature in superposition.
+
+\section{Final Thoughts and Conclusion}
 
 \bibliographystyle{plain}
 \bibliography{references}
