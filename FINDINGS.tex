@@ -584,7 +584,26 @@ highly favorable. This illustrates a limitation of the research of \textit{Toy
 Models of Superposition}: in practice it can be fairly complex to predict weather
 a model should represent a feature in superposition.
 
-\section{Final Thoughts and Conclusion}
+\section{Conclusion}
+
+This replication demostrates that it is possible for models to represent 
+features in superposition. It also shows that the phenomenon of superposition is 
+somewhat predictable. For example, models trained on sparse data are more
+likely to represent the features in superposition. On the other
+hand, if one feature is exceedingly important is is very unlikely that that
+feature will be represented in superposition. Overall, this replication shows
+that there are reasonable frameworks which machine learning researchers can
+apply to understand why a model represents information in the way
+it does.\\
+
+With that being said, there are some serious limitations to thinking about neural 
+networks in this way. In all the examples in this replication, the result was 
+highly dependent on the exact training conditions such as learning rate and 
+batch size. Thus, I beleive that it is wise to be cautious when making broad 
+claims about models such as ``model x will represent less information in 
+superposition than model y because model x is larger.'' The truth is that there 
+are a number of important factors that influence weather or not a model with 
+represent information orthogonally or in superposition.
 
 \bibliographystyle{plain}
 \bibliography{references}
