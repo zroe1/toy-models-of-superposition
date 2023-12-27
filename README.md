@@ -50,7 +50,7 @@ Each model is trained to reconstruct it's input.
 
 In the graphic below, the grids on the top represent $W^TW$ with the orange squares representing positive numbers in this matrix. The bar graphs on the bottom
 show the extent to which the model represents each input internally. The models studied below have 5 dimensions and were trained with 0 sparsity. In these training
-conditions, the toy models represent 5 features: one for each dimension in the model.
+conditions, the toy models represent 5 features: one for each dimension in the model. The features are mapped orthogonally and are therefore not in superposition.
 
 <p align="center">
 <img width="400" alt="relu_linear_0_sparsity" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/403f2eec-4773-479b-9a0f-6419fd464387">
@@ -58,9 +58,17 @@ conditions, the toy models represent 5 features: one for each dimension in the m
 
 #### Models With Sparsity:
 
+Increasing the sparsity of the ReLU model (ReLU($W^TWx + b$)) results in the model abandoning orthogonal representations of features. The grid representations of $W^TW$ begin to
+become much less clean. The bar chart at the bottom of the figures show that under these conditions, the model maps more features than it has dimensions. Bars
+that are colored blue represent features that are not represented orthogonally to others in weight matrix $W$. These features are therefore in "superposition."
+
 <p align="center">
 <img width="600" alt="sparsity_superposition1" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/827eeba9-bc02-47a8-b8eb-bde6700adaf8">
 </p>
+
+As one continues to increase the sparsity of the ReLU model, it ceases to represent any features orthogonally. Not that all the bar charts in the bottom of the
+figure below are colored blue to represent that the model is representing them in superposition. As a result, the grids representing $W^TW$ are far more noisy
+than in the examples above.
 
 <p align="center">
 <img width="600" alt="sparsity_superposition2" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/560eb12f-c248-4888-b40b-712aec6ed96a">
