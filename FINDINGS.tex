@@ -311,13 +311,13 @@ from this replication. \\
 \section{Superposition as a Phase Change}
 
 The author's of \textit{Toy Models of Superposition} claim that superposition
-can be thought of as a a kind of ``phase change.'' Figure~\ref{fig:section4_anthropic}
+can be thought of as a kind of ``phase change.'' Figure~\ref{fig:section4_anthropic}
 shows a phase diagram for single-neuron models with 2 inputs. The models studied were
 defined by ReLU($W^TWx + b$) and trained to simply reconstruct their inputs. The authors 
 used a weighted mean squared error loss where the importance of 
-the second output is varied between 0.1 and 10. The relative importance of this
-second output is the x-axis for the graphs in Figure~\ref{fig:section4_anthropic}.
-The y-axis represents the model's feature density---in other words, the probability
+the second output was varied between 0.1 and 10. The relative importance of this
+second output represents the x-axis for the graphs in Figure~\ref{fig:section4_anthropic}.
+The y-axis reflects the model's feature density---in other words, the probability
 that a given input will be non-zero.
 
 \begin{figure}[h]
@@ -368,8 +368,7 @@ $s$ is the feature density---in other words, 1 - sparsity. For information
 about how these equations were derived, visit the
 \href{https://github.com/wattenberg/superposition/blob/main/Exploring_Exact_Toy_Models.ipynb}{notebook} 
 provided by the authors.
-Based on the sparsity of the input and the relitive feature
-importance of the second output, the authors were able to plot which weight configuration
+Based on these equations, the authors were able to plot which weight configuration
 would theoretially lead to the lowest loss in Figure~\ref{fig:section4_anthropic}.
 They were then able to train models and average the results to show that the
 same pattern emerges imperically when training models with gradient descent.
@@ -398,12 +397,12 @@ way to clarify my claims.
 
 \subsection{Replicating Theoretical Predictions}
 
-By using equation~\ref{eq:loss1}, equation~\ref{eq:loss2} and equation~\ref{eq:loss3}
+By using equations~\ref{eq:loss1}, \ref{eq:loss2} and \ref{eq:loss3},
 I was able to replicate the theorical phase diagram from
 \textit{Toy Models of Superposition}.
 The careful reader however, will notice that the theoretical prediction in
 Figure~\ref{fig:section4_anthropic} (graphic from \textit{Toy Models of 
-Superposition}) looks less choppy than the one in Figure~\ref{fig:phase_changes_replication} (graphic
+Superposition}) looks far less choppy than the one in Figure~\ref{fig:phase_changes_replication} (graphic
 generated for this replication). This is because in the theoretical prediction I 
 generated, steps between each value on the x-axis are much larger. This, however, is
 intentional and is benificial for two reasons. First, by creating larger steps 
@@ -430,8 +429,8 @@ much more managable.
 
 \textbf{Important Point of Clarification:} Although 
 figure~\ref{fig:phase_changes_replication} includes a graph for both a linear and ReLU
-imperical results the theoretially predictions are strictly calculated assuming
-as ReLU activation function on the model. We dicuss the linear findings in section
+imperical results, the theoretially predictions are strictly calculated assuming
+a ReLU activation function on the model. We dicuss the linear findings in section
 [insert], but the main focus of this replication is on the ReLU results.
 
 \subsection{Training 1,000,000 ReLU Models}
@@ -440,15 +439,15 @@ Theoretical predictions in figure~\ref{fig:phase_changes_replication} account
 for 1000 different levels of feature sparsity and 100 levels of relative feature
 importance. As a result, in order to test the predictions imperically, it was
 necessary to train batches of 100,000 models. In order to create a good sample
-to detect trends I trained 10 batches of 100,000 ReLU models.In my compute-constrained environment,
+to detect trends I trained 10 batches of 100,000 ReLU models. In my compute-constrained environment,
 this proved to be a significant challenge. For this reason, I had to make a few
 important considerations when writing code to train the ReLU models. I used 
-similar methods to train a set of linear models but this is descussed seperately
+similar methods to train a set of linear models but this is discussed seperately
 in section [insert].\\
 
 The most obvious thing I did to improve performance when training the 
 ReLU models was to not train each model independently. Instead I constructed a 
-pytorch tensor which included all 100,000 models and used build-in PyTorch functions 
+PyTorch tensor which included all 100,000 models and used build-in PyTorch functions 
 to train the models simultaneously. This helps PyTorch optimize training by 
 leveraging features like parallel operations. \\
 
@@ -462,18 +461,18 @@ in theory, the model should "want" to make each item in it's weight matrix
 either 1 or -1. Increasing the standard devation puts more numbers around this range.
 Similarly, I found that it is advantagous to decrease the standard deviation of the
 bias parameters from 1 to 0.5. This makes intuitive sense in this experiment because
-this is no case where the one-neuron models should "want" to have a very high bias.
+there is no case where the one-neuron models should ``want'' to have large bias values.
 It is worth noting that initalizing the weights and biases in this way does
 not eliminate the need for the models to be trained using gradient descent.
 Figure~\ref{fig:relu_loss} shows how even with these weight initalizations the
 overall loss of the trained models is still initially very high and quickly
 decreases as the models are trained. The goal of initalizing the weights and biases
-with unconventional standard deviation is not to eliminate the need for training
+with unconventional standard deviations is not to eliminate the need for training
 but to rather help the models achieve lower losses and train more efficiently.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.6\linewidth]{phase_changes/images/relu_loss.png}
+    \includegraphics[width=0.5\linewidth]{phase_changes/images/relu_loss.png}
     \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
     \caption{
         Loss for ReLU models trained in this replication. Note that the loss
@@ -484,7 +483,62 @@ but to rather help the models achieve lower losses and train more efficiently.
 \end{figure}
 
 The overall result of this training is shown below along with the results of
-the original authors of \textit{Toy Models of Superposition} in 
+the original authors of \textit{Toy Models of Superposition}. Both diagrams show
+the empirical result of training one-neuron ReLU toy models.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{phase_changes/images/relu_empirical.png}
+    \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
+    \caption{
+        Empirical losses for one-neuron ReLU toy models. The graph on the left
+        is taken from \textit{Toy Models of Superposition}. The figure on the
+        right was generated for this replication.
+    }
+    \label{fig:relu_empirical}
+\end{figure}
+
+Although there are a few clear differences between the graphs in
+figure~\ref{fig:relu_empirical}, they are similar in the way that they illustrate
+analogous overall trends. When the second feature has a very low level of feature
+importance and overall feature density is high, the one-neuron ReLU represents
+only the first input interally ($W \approx [1, 0]$). If the feature density is high,
+and the second feature has a high importance, only the second input is represented
+in $W$ ($W \approx [0, 1]$). As the feature density of the model's training data
+decreases, the model has an incentive to not map features in this way but to rather
+represent them in superposition. This is the same phenomenon we observed in 
+figure~\ref{fig:section1_replication} from the introduction of this paper.\\
+
+There is, however, also clearly a few important differences between the graph in
+figure~\ref{fig:relu_empirical}. The first is that the result generated by the
+authors of \textit{Toy Models of Superposition} matches the theoretical
+expectation much better than the graph generated for this replication. This could
+be partially because slighly different methods we used in interpreting the results
+of training these one-neuron models. In the original paper, the authors also train
+10 batchs of real models but they say they ``average over the results, discarding 
+the model with the highest loss.'' I was not able to follow this exact process
+becasue it is not entirely clear what it means in this context to ``average over
+the results.'' Because a model with $W = [1, 0]$ behaves in the exact same way as
+$W = [-1, 0]$ it doesn't make sense to average over the models making 
+$W_{avg} = [0, 0]$. Likewise, it does not make sense to take the absolute value
+of each weight matrix before averaging because in some cases having a negative
+number does make the model behave differently (e.g., $W = [1, -1]$). As a result,
+I took a slighly different approach. For each model I trained, I kept track of
+weather the weight matrix represented only the first feature or only the second feauture.
+If $W$ represented neither or both, I skiped it. At the end of training, if more
+than half of the models trained at a given point mapped only the first feauture,
+that point was colored orange in the graph. If more than half map the second feature,
+the point is colored purple. Using this mehtod may be more strict a method than
+the original authors used making my graph more bare and less similar to the
+theoretical predictions.\\
+
+Another factor that could have led to a discrepency between the theoretical and
+and empirical findings could have been the non-ideal environment the
+one-neuron ReLU models were trained in. Because my setup is compute-constrained,
+I was not able to iterate and experiment as much as I wish I could have in training 
+the models. As a result, I expect the loss I acheived could have been significantly
+lower in an ideal training environment.
+
 
 \bibliographystyle{plain}
 \bibliography{references}
