@@ -53,7 +53,7 @@ show the extent to which the model represents each input internally. The models 
 conditions, the toy models represent 5 features: one for each dimension in the model. The features are mapped orthogonally and are therefore not in superposition.
 
 <p align="center">
-<img width="400" alt="relu_linear_0_sparsity" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/403f2eec-4773-479b-9a0f-6419fd464387">
+<img width="330" alt="relu_linear_0_sparsity" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/403f2eec-4773-479b-9a0f-6419fd464387">
 </p>
 
 #### Models With Sparsity:
@@ -76,6 +76,24 @@ than in the examples above.
 
 ### Phase changes:
 
+The authors of <i>Toy Models of Superposition</i> claim that transitions from different interal structures within a model can be thought of as phase changes.
+The graphic below shows three phase diagrams. Note that I found that when training a group of ReLU models, they do not align with the theoretical phase diagram.
+The overall trend and shape, however is somewhat consistent. I also trained a group of linear models and found similar results despite the fact that, in theory,
+linear models should not represent any features in superpostion. This all illustrates that even if a model "should" do something, it may not unless the conditions
+are highly favorable.
+
+This part of the paper was perhaps the most difficult. It involved training 1,000,000 one-neuron ReLU models and 100,000 one-neuron linear models.
+
 <p align="center">
 <img width="765" alt="phase_changes_replication" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/654ea739-4c54-45aa-bb2b-c7f6ffd2e263">
 </p>
+
+## Conclusions
+
+This replication demostrates that it is possible for models to represent features in superposition. It also shows that phenomenon of superposition is somewhat 
+predictable. For example, by increasing the sparsity of a model's input, that model is more likely to represent the input in superposition.
+
+With that being said, there are some serious limitations to thinking about neural networks in this way. In all the examples in this replication, 
+the result was highly dependent on the exact training conditions such as learning rate and batch size. Thus, I beleive that it is wise to be cautious when making
+broad claims about models such as "model x will represent less information in superposition than model y because model x is larger." The truth is that there
+are a number of important factors that influence weather or not a model with represent information orthogonally or in superposition. 
