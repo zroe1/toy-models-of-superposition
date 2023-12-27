@@ -91,7 +91,7 @@ This part of the paper was perhaps the most difficult. It involved training 1,00
 ## Conclusions
 
 This replication demostrates that it is possible for models to represent features in superposition. It also shows that phenomenon of superposition is somewhat 
-predictable. For example, by increasing the sparsity of a model's input, that model is more likely to represent the input in superposition.
+predictable. For example, models trained on sparse data are more likely to represent the features in superposition.
 
 With that being said, there are some serious limitations to thinking about neural networks in this way. In all the examples in this replication, 
 the result was highly dependent on the exact training conditions such as learning rate and batch size. Thus, I beleive that it is wise to be cautious when making
