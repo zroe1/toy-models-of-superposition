@@ -34,14 +34,24 @@ a model's wieghts as a vector and display how the model changes as you vary spar
 
 I was able to get the same result using the information from the paper:
 
+<p align="center">
 <img width="730" alt="section1_replicated_graphic" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/1d968aee-ec92-4abf-81bf-4eb9b9bfe894">  
+</p>
 
 Note that the bold lines display the length of the vector while the dotted ones merely show what the vector would look like if it was extended. The patern is the same:
 if there is no sparsity in the input, the model encodes the two most important features orthogonally. When you introduce sparsity, you begin to see superposition.
 
 ### Demonstrating Superposition:
 
-#### Linear Models:
+This section of my replication explores both a linear model defined by $W^TWx + b$ and a model with an ReLU activation function defined by ReLU($W^TWx + b$).
+Each model is trained to reconstruct it's input.
+
+#### Models With Orthogonal Feature Representation (No Superposition):
+
+In the graphic below, the grids on the top represent $W^TW$ with the orange squares representing positive numbers in this matrix. The bar graphs on the bottom
+show the extent to which the model represents each input internally. The models studied below have 5 dimensions and were trained with 0 sparsity. In these training
+conditions, the toy models represent 5 features: one for each dimension in the model.
+
 <p align="center">
 <img width="400" alt="relu_linear_0_sparsity" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/403f2eec-4773-479b-9a0f-6419fd464387">
 </p>
@@ -59,6 +69,5 @@ if there is no sparsity in the input, the model encodes the two most important f
 ### Phase changes:
 
 <p align="center">
-<img width="565" alt="phase_changes_replication" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/7e6ba16b-bfe6-4ff4-a3aa-a64bcf7b345b">
+<img width="765" alt="phase_changes_replication" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/654ea739-4c54-45aa-bb2b-c7f6ffd2e263">
 </p>
-
