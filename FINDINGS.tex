@@ -439,25 +439,26 @@ Theoretical predictions in figure~\ref{fig:phase_changes_replication} account
 for 1000 different levels of feature sparsity and 100 levels of relative feature
 importance. As a result, in order to test the predictions imperically, it was
 necessary to train batches of 100,000 models. In order to create a good sample
-to detect trends I trained 10 batches of 100,000 ReLU models. In my compute-constrained environment,
+to detect trends, I trained 10 batches of 100,000 ReLU models, for a total of one million
+models across training. In my compute-constrained environment,
 this proved to be a significant challenge. For this reason, I had to make a few
 important considerations when writing code to train the ReLU models. I used 
 similar methods to train a set of linear models but this is discussed seperately
 in section [insert].\\
 
 The most obvious thing I did to improve performance when training the 
-ReLU models was to not train each model independently. Instead I constructed a 
+ReLU models was to not train each model independently. Instead, I constructed a 
 PyTorch tensor which included all 100,000 models and used build-in PyTorch functions 
 to train the models simultaneously. This helps PyTorch optimize training by 
 leveraging features like parallel operations. \\
 
-Another thing I did to make training more efficient was to initalize weights and
+Another thing I did to make training more efficient was to initalize the weights and
 biases in a way that helps each model reduce it's loss faster and avoid local minima.
 I found it to be highly benificaial to initalize the weights using a normal 
 distribution with a standard deviation of 1.5 instead of a stardard deviation of
-1.0 (which is perhaps a more natural choice in this kind of setup). This change
+1.0 (which perhaps would be a more natural choice in this kind of setup). This change
 makes sense because 
-in theory, the model should "want" to make each item in it's weight matrix
+in theory, the model should ``want'' to make each item in it's weight matrix
 either 1 or -1. Increasing the standard devation puts more numbers around this range.
 Similarly, I found that it is advantagous to decrease the standard deviation of the
 bias parameters from 1 to 0.5. This makes intuitive sense in this experiment because
@@ -475,15 +476,15 @@ but to rather help the models achieve lower losses and train more efficiently.
     \includegraphics[width=0.5\linewidth]{phase_changes/images/relu_loss.png}
     \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
     \caption{
-        Loss for ReLU models trained in this replication. Note that the loss
-        is the sum of the losses of 64 batchs of 100,000 models throughout 
-        training. The x-axis indicates the batch number in training.
+        Loss for ReLU models trained in this replication. Note that the each point
+        on the graph is the loss for a batch of 64 examples of 100,000 models. 
+        The x-axis indicates the batch number in training.
     }
     \label{fig:relu_loss}
 \end{figure}
 
-The overall result of this training is shown below along with the results of
-the original authors of \textit{Toy Models of Superposition}. Both diagrams show
+The overall result of this training is shown below compared with the findings
+from \textit{Toy Models of Superposition}. Both diagrams show
 the empirical result of training one-neuron ReLU toy models.
 
 \begin{figure}[h]
@@ -499,41 +500,44 @@ the empirical result of training one-neuron ReLU toy models.
 \end{figure}
 
 Although there are a few clear differences between the graphs in
-figure~\ref{fig:relu_empirical}, they are similar in the way that they illustrate
-analogous overall trends. When the second feature has a very low level of feature
-importance and overall feature density is high, the one-neuron ReLU represents
-only the first input interally ($W \approx [1, 0]$). If the feature density is high,
-and the second feature has a high importance, only the second input is represented
+figure~\ref{fig:relu_empirical}, the results are similar in the way that they
+each illustrate
+analogous overall trends. When the second output has a very low level of relative feature
+importance and overall feature density is high, the one-neuron ReLU models tend to represent
+only the first input interally ($W \approx [1, 0]$). If the second feature has 
+a high relative importance, only the second input is represented
 in $W$ ($W \approx [0, 1]$). As the feature density of the model's training data
 decreases, the model has an incentive to not map features in this way but to rather
 represent them in superposition. This is the same phenomenon we observed in 
 figure~\ref{fig:section1_replication} from the introduction of this paper.\\
 
-There is, however, also clearly a few important differences between the graph in
+There is, however, also clearly a few important differences between the graphs in
 figure~\ref{fig:relu_empirical}. The first is that the result generated by the
 authors of \textit{Toy Models of Superposition} matches the theoretical
 expectation much better than the graph generated for this replication. This could
-be partially because slighly different methods we used in interpreting the results
-of training these one-neuron models. In the original paper, the authors also train
-10 batchs of real models but they say they ``average over the results, discarding 
+be partially because of slighly different methods used in interpreting the results
+of training these one-neuron models. In the original paper, the authors train
+10 batchs of real models saying they ``average over the results, discarding 
 the model with the highest loss.'' I was not able to follow this exact process
 becasue it is not entirely clear what it means in this context to ``average over
 the results.'' Because a model with $W = [1, 0]$ behaves in the exact same way as
+a model with
 $W = [-1, 0]$ it doesn't make sense to average over the models making 
 $W_{avg} = [0, 0]$. Likewise, it does not make sense to take the absolute value
 of each weight matrix before averaging because in some cases having a negative
 number does make the model behave differently (e.g., $W = [1, -1]$). As a result,
 I took a slighly different approach. For each model I trained, I kept track of
-weather the weight matrix represented only the first feature or only the second feauture.
+weather the weight matrix $W$ represented only the first feature or only the second feauture.
 If $W$ represented neither or both, I skiped it. At the end of training, if more
 than half of the models trained at a given point mapped only the first feauture,
-that point was colored orange in the graph. If more than half map the second feature,
-the point is colored purple. Using this mehtod may be more strict a method than
-the original authors used making my graph more bare and less similar to the
+that point was colored orange on the resulting graph. If more than half the models
+mapped only the second feature,
+the point was colored purple. Using this mehtod may have been more strict than
+the tactics used by the original authors making my graph more bare and less similar to the
 theoretical predictions.\\
 
 Another factor that could have led to a discrepency between the theoretical and
-and empirical findings could have been the non-ideal environment the
+and empirical findings may have been the non-ideal environment the
 one-neuron ReLU models were trained in. Because my setup is compute-constrained,
 I was not able to iterate and experiment as much as I wish I could have in training 
 the models. As a result, I expect the loss I acheived could have been significantly
