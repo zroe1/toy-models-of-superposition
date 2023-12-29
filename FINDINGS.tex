@@ -44,7 +44,7 @@
 \begin{abstract}
 \begin{quote}
     \textit{Toy Models of Superposition}\cite{elhage2022toy} is a groundbreaking 
-    paper published by researchers affiliated with Anthropic and Harvard University in 2022. By 
+    paper published by researchers affiliated with Anthropic and Harvard in 2022. By 
     investigating small models with under 100 neurons, the paper demonstrates 
     that neural networks can represent more features than they have dimensions. 
     Additionally, they use these so-called ``toy models'' to understand the 
@@ -75,22 +75,22 @@ By doing this, the authors of \textit{Toy Models of Superposition} demonstrate t
 the internal structure of a model depends on the sparsity of its training data.
 A replication of this phenomenon can be found below and the code used to 
 generate it can be found 
-\href{https://github.com/zroe1/toy_models_of_superposition/blob/main/section_1/section_1.ipynb}{here}.\\ 
+\href{https://github.com/zroe1/toy-models-of-superposition/blob/main/introduction/introduction.ipynb}{here}.\\ 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\linewidth]{introduction/images/introduction_replicated_graphic.png}
     \captionsetup{font=footnotesize} % Set the font size for this caption
-    \caption{Replication of Figure~\ref{fig:section1_anthropic}}
+    \caption{Replication of figure~\ref{fig:section1_anthropic}}
     \label{fig:section1_replication}
 \end{figure}
 
-The model studied in  Figure~\ref{fig:section1_replication} is designed such that 
+The model studied in  figure~\ref{fig:section1_replication} is designed such that 
 each column in the weight matrix corresponds to a  given input. The weight
-matrix in this example contains only 2 neurons, so each column can be graphed as
+matrix in this example contains only 2 neurons so each column can be graphed as
 a 2D vector. Observing these vectors while increasing the sparsity of the model's input reveals
 that the model can represent five features despite having only 2 neurons. This 
-kind of representation is what the authors call "superposition." In future sections we will study 
+kind of representation is what the authors call "superposition." In future sections, we will study 
 superposition extensively and reproduce this phenomenon in larger networks.
 
 \section{Background and Motivation}
@@ -101,16 +101,16 @@ provide some additional commentary on the definitions and explanations the autho
 
 \textbf{(1) Defining Features: }\textit{Toy Models of Superposition}
 defines features broadly as ``properties of the input which a sufficiently large 
-neural network will reliably dedicate a neuron to representing.'' The authors do
-however describe this definition as ``slightly circular'' and note that they are
+neural network will reliably dedicate a neuron to representing.'' The authors do,
+however, describe this definition as ``slightly circular'' and note that they are
 not ``overly attached to it.'' I find the definition especially problematic because 
 certain architectures may be incentivized to ignore an aspect of the input that 
-differently designed models may "want" to internally represent. It is unclear to me whether
-there is sufficient evidence to support the idea of a sort of ground truth for 
-features. As a result, I propose an alternative definition: features are aspects 
+differently designed models may ``want'' to internally represent. As a result, I propose an alternative definition: features are aspects 
 of the input that a neural network represents accurately with a significantly higher probability than 
 a randomly initialized network. In other words, features are parts of the input 
-that a model determines to be important enough to represent internally.\\
+that a model determines to be important enough to represent internally. (This definition
+is very similar to the ``features as arbitrary functions'' definition from the
+original paper.)\\
 
 \textbf{(2) Role of Linear Representations in Neural Networks: }The original authors
 of the paper study interpretability by trying to understand the linear representations
@@ -118,7 +118,7 @@ within neural networks. It is worth noting that this isn't the only way to appro
 mechanistic interpretability research. Understanding the role of non-linearities 
 at each level is likely also very important (and perhaps more neglected).\newline\newline
 \textbf{(3) Defining Superposition: } The original paper has a compelling yet
-simple definition for Superposition: ``Roughly, the idea of 
+simple definition for superposition: ``Roughly, the idea of 
 superposition is that neural networks `want to represent more features than they 
 have neurons', so they exploit a property of high-dimensional spaces to 
 simulate a model with many more neurons.'' This is the definition I will use
@@ -127,23 +127,26 @@ throughout this paper.
 \section{Demonstrating Superposition}
 
 In the introduction, the authors of the original paper proved that models with 
-two neurons could exhibit superposition (this result was reproduced in Figure~\ref{fig:section1_replication}).
+two neurons could exhibit superposition (this result was reproduced in figure~\ref{fig:section1_replication}).
 Later in the paper, however, the authors demonstrate that superposition
-is also observed in models with more than two neurons. Specifically they begin 
-by exploring two models with a weight matrix $W_{5 \times 20}$: a linear model defined by 
-$W^TWx + b$ and a ReLU model defined by ReLU($W^TWx + b$). The objective of both
+is also observed in models with more than two neurons. Specifically, they begin 
+by studying a linear model defined by 
+$W^TWx + b$ and a ReLU model defined by ReLU($W^TWx + b$)---both with a weight matrix $W_{5 \times 20}$.
+The objective of both
 models was to reconstruct the input $x$. The authors used a weighted mean squared
 error loss function making accurately representing some features more important
-than others. For more information about the loss see section 2 of the original
-paper.\\
+than others. For more information about the loss see 
+\href{https://transformer-circuits.pub/2022/toy_model/index.html#demonstrating}{section 2} 
+of the original paper.\\
+
 
 While the model without an activation function appears to only represent features
 orthogonally, the authors claim that the ReLU model can exhibit superposition
 if it is trained on sparse enough data. Because we defined each weight matrix with 5 neurons ($W_{5 \times 20}$)
-this claim cannot be validated by graphing features in 2D like in Figure~\ref{fig:section1_replication}. 
-But by graphing $W^TW$, superposition in the ReLU model can be shown visually in Figure~\ref{fig:section3_anthropic}. 
+this claim cannot be validated by graphing features in 2D like in figure~\ref{fig:section1_replication}. 
+But by graphing $W^TW$, superposition in the ReLU model can be shown visually in figure~\ref{fig:section3_anthropic}. 
 In this figure, positive numbers in the matrix $W^TW$ are labeled red while 
-negative ones are colored blue. They also graph the length of each feature by treating 
+negative ones are colored blue. The authors also graph the length of each feature by treating 
 each column in $W$ as a vector. Features that are orthogonal to others in $W$ are 
 labeled black while features that aren't are labeled yellow
 (the exact details for how this is calculated is discussed in \ref{sec:calc_super}).\\
@@ -156,12 +159,12 @@ labeled black while features that aren't are labeled yellow
     \label{fig:section3_anthropic}
 \end{figure}
 
-The visualization of $W^{T}W$ (top of Figure~\ref{fig:section3_anthropic}) and the 
+The visualization of $W^{T}W$ (top of figure~\ref{fig:section3_anthropic}) and the 
 chart of feature representations (bottom of the figure) both show that by increasing sparsity, the 
 ReLU model ceases to represent features orthogonally. The yellow bars shown in the models
 on the right side of the figure illustrate that the model maps all its features 
 in superposition. This is also shown in the graphs of the weight matrices $W^{T}W$ for
-sparse models in Figure~\ref{fig:section3_anthropic}. These 
+sparse models in figure~\ref{fig:section3_anthropic}. These 
 representations appear to show the model embedding more than 5 features, but 
 the representation is noisy.\\ 
 
@@ -180,24 +183,24 @@ models were trained with the Adam optimizer (learning rate = $1*10^{-3}$) on
     \label{fig:relu_linear_0}
 \end{figure}
 
-Note that in Figure~\ref{fig:relu_linear_0}, I use orange to indicate
+Note that in figure~\ref{fig:relu_linear_0}, I use orange to indicate
 positive numbers and purple to indicate negative ones. This is different from
-the red and blue in Figure~\ref{fig:section3_anthropic} to distinguish my work 
+the red and blue in figure~\ref{fig:section3_anthropic} to distinguish my work 
 from that of the original authors. Similarly, while the original authors use 
 yellow to indicate features in superposition, I use blue (This is hard to see in 
-Figure~\ref{fig:relu_linear_0} but it will be more obvious going forward).
+figure~\ref{fig:relu_linear_0} but it will be more obvious going forward).
 
 \subsection{Calculating Superposition}
 \label{sec:calc_super}
 
-The models in Figure~\ref{fig:relu_linear_0} do not exhibit superposition. They
+The models in figure~\ref{fig:relu_linear_0} do not exhibit superposition. They
 encode the five most important features orthogonally (one feature for each
 neuron in the model). In this section, we will be investigating models
 that do not behave in this way, instead encoding features as vectors that interfere
 with each other. The model explored in this section is defined by the same architecture
-and objective as the models in Figure~\ref{fig:relu_linear_0}. The difference
+and objective as the models in figure~\ref{fig:relu_linear_0}. The difference
 is that the models in this section are trained on sparse input data and, as a
-result, map features internally in superposition. \\
+result, map features in superposition. \\
 
 In order to explain this phenomenon and demonstrate how models with sparse input
 are able to represent features in superposition, it will be useful to dive into 
@@ -217,7 +220,7 @@ feature in superposition. Note that $\hat{W}_i$ is the unit vector for $W_i$.
 This is necessary because when calculating interference, we are interested in
 the direction of a given feature, not its length.\newline
 
-In Figure~\ref{fig:sparsity_1}, the length of a feature (calculated by taking the
+In figure~\ref{fig:sparsity_1}, the length of a feature (calculated by taking the
 length of the vector $W_i$) determines the width of the bars in the feature
 graph (shown in the bottom half of the figure). The interference equation (Equation~\ref{eq:my_equation}) determines the
 color of the columns: black indicates a low value for interference
@@ -232,7 +235,7 @@ in superposition while black bars indicate that the feature is mapped orthogonal
     \caption{
         Superposition is observed in models trained on 70\%, 90\% and 97\% 
         sparse inputs (code to generate these figures can be found 
-        \href{https://github.com/zroe1/toy_models_of_superposition/blob/main/section_1/section_1.ipynb}{here}). 
+        \href{https://github.com/zroe1/toy-models-of-superposition/blob/main/demonstrating_superposition/demonstrating_superposition.ipynb}{here}). 
         The 70\% and 90\% sparse models were trained on 50,000 batches of 256 
         examples with the ``RMSProp'' optimizer (learning rate = $10^{-2}$). The 
         97\% sparsity model was trained on 100,000 batches of 256 examples using 
@@ -241,11 +244,11 @@ in superposition while black bars indicate that the feature is mapped orthogonal
     \label{fig:sparsity_1}
 \end{figure}
 
-Unlike the models with 0\% sparsity in Figure~\ref{fig:relu_linear_0}, the models
-in Figure~\ref{fig:sparsity_1} have higher levels of sparsity and, as
-a result, leverage superposition. The bottom half of Figure~\ref{fig:sparsity_1}
+Unlike the models with 0\% sparsity in figure~\ref{fig:relu_linear_0}, the models
+in figure~\ref{fig:sparsity_1} have higher levels of sparsity and, as
+a result, leverage superposition. The bottom half of figure~\ref{fig:sparsity_1}
 shows that these models represent far more features than the models in
-Figure~\ref{fig:relu_linear_0}, but by doing so, they are forced to represent many 
+figure~\ref{fig:relu_linear_0}, but by doing so, they are forced to represent many 
 of their features in superposition. The models only have 5 neurons so if they 
 ``want'' to represent more than 5 features, they can't represent each feature 
 orthogonally. This tradeoff is intuitively more attractive when the model is
@@ -257,7 +260,7 @@ a significant percentage of the input is 0).
 \subsection{Models Trained on Very Sparse Data}
 
 As sparsity is increased to almost 100\% the models stop representing any features
-orthogonally. This is displayed in Figure~\ref{fig:sparsity_2} where models are
+orthogonally. This is displayed in figure~\ref{fig:sparsity_2} where models are
 trained on 99\%, 99.7\% and 99.9\% sparse inputs.
 
 \begin{figure}[h]
@@ -274,12 +277,12 @@ trained on 99\%, 99.7\% and 99.9\% sparse inputs.
 \end{figure}
 
 The representations of $W^{T}W$ of these very sparse models (shown in the top
-half of Figure~\ref{fig:sparsity_2}) is far less clean than previous
+half of figure~\ref{fig:sparsity_2}) is far less clean than previous
 representations we have seen. This is the same trend the original authors
-found when increasing sparsity of these models (Figure~\ref{fig:section3_anthropic}
+found when increasing sparsity of these models (figure~\ref{fig:section3_anthropic}
 illustrates how the original authors displayed this visually). \\
 
-The feature representations, shown in the bottom half of Figure~\ref{fig:sparsity_2},
+The feature representations, shown in the bottom half of figure~\ref{fig:sparsity_2},
 are also consistent with the findings of \textit{Toy Models of Superposition}.
 Like the investigation from the original paper, these feature representations 
 show no features mapped orthogonally (recall that features that interfere with
@@ -288,9 +291,9 @@ each other are shown in blue). \\
 \subsection{Scaling Results to Larger Models}
 
 In the previous subsections, we have explored superposition in models with 5
-neurons and 20 inputs. This proves that the phenomenon we observed in Figure~\ref{fig:sparsity_2}
+neurons and 20 inputs. This proves that the phenomenon we observed in figure~\ref{fig:section1_replication}
 applies to models with more than 2 neurons. The original paper expanded this 
-finding by also studying models with 20 neurons and 80 inputs (Figure~\ref{fig:section3_anthropic2}). \\
+finding by also studying models with 20 neurons and 80 inputs (figure~\ref{fig:section3_anthropic2}). \\
 
 \begin{figure}[h]
     \centering
@@ -306,7 +309,7 @@ The original authors report that this experiment produced ``qualitatively simila
 results compared to the models with 5 neurons and 20 inputs. Because this experiment 
 is almost identical to the previous ones, and because I would not expect to find 
 results that conflict with the original paper, I have excluded this experiment 
-from this replication. \\
+from this replication to focus on other sections. \\
 
 \section{Superposition as a Phase Change}
 
@@ -321,16 +324,15 @@ shows a phase diagram for single-neuron models with 2 inputs. The models studied
 defined by ReLU($W^TWx + b$) and trained to simply reconstruct their inputs. The authors 
 used a weighted mean squared error loss where the importance of 
 the second output was varied between 0.1 and 10. The relative importance of this
-second output represents the x-axis for the graphs in Figure~\ref{fig:section4_anthropic}.
-The y-axis reflects the model's feature density---in other words, the probability
-that a given input will be non-zero.
+second output represents the x-axis for the graphs in figure~\ref{fig:section4_anthropic}
+while he y-axis reflects the model's feature density---in other words, 1 - sparsity.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.99\linewidth]{phase_changes/images/phase_changes_anthropic.png}
-    \captionsetup{font=footnotesize, width=0.7\linewidth} % Set the font size for this caption
+    \captionsetup{font=footnotesize, width=0.75\linewidth} % Set the font size for this caption
     \caption{
-        Theoretical and empirical superposition in one neuron models in 
+        Phase diagrams for one-neuron models in 
         \textit{Toy Models of Superposition}\cite{elhage2022toy}
     }
     \label{fig:section4_anthropic}
@@ -341,7 +343,7 @@ neuron model represents it's input internally. The colors on the graph represent
 which of these internal configurations lead to the lowest theoretical loss.
 The first possibility is the model 
 \textit{only} represents the first input. In this case, the weight matrix $W = [1, 0]$ (shown in
-gray in Figure~\ref{fig:section4_anthropic}). The opposite option is also a 
+gray in figure~\ref{fig:section4_anthropic}). The opposite option is also a 
 possibility: the model could only embed the second feature making $W = [0, 1]$ 
 (shown in blue). The third possibility is the model could represent \textit{both}
 features by making $W = [1, -1]$ (shown in red). \\
@@ -374,7 +376,7 @@ about how these equations were derived, visit the
 \href{https://github.com/wattenberg/superposition/blob/main/Exploring_Exact_Toy_Models.ipynb}{notebook} 
 provided by the authors.
 Based on these equations, the authors were able to plot which weight configuration
-would theoretically lead to the lowest loss in Figure~\ref{fig:section4_anthropic}.
+would theoretically lead to the lowest loss in figure~\ref{fig:section4_anthropic}.
 They were then able to train models and average the results to show that the
 same pattern emerges empirically when training models with gradient descent.
 
@@ -411,8 +413,8 @@ By using equations~\ref{eq:loss1}, \ref{eq:loss2} and \ref{eq:loss3},
 I was able to replicate the theoretical phase diagram from
 \textit{Toy Models of Superposition}.
 The careful reader however, will notice that the theoretical prediction in
-Figure~\ref{fig:section4_anthropic} (graphic from \textit{Toy Models of 
-Superposition}) looks far less choppy than the one in Figure~\ref{fig:phase_changes_replication} (graphic
+figure~\ref{fig:section4_anthropic} (graphic from \textit{Toy Models of 
+Superposition}) looks far less choppy than the one in figure~\ref{fig:phase_changes_replication} (graphic
 generated for this replication). This is because in the theoretical prediction I 
 generated, steps between each value on the x-axis are much larger. This, however, is
 intentional and is beneficial for two reasons. First, by creating larger steps 
