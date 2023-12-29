@@ -30,26 +30,25 @@ of my experiments along with additional commentary from section 1 of the origina
 
 ## Summary
 
-This summary is a breif overveiw of my findings from <b><a href="https://github.com/zroe1/toy_models_of_superposition/blob/main/FINDINGS.pdf">FINDINGS.pdf</a></b>.
+This summary is a brief overview of my findings from <b><a href="https://github.com/zroe1/toy_models_of_superposition/blob/main/FINDINGS.pdf">FINDINGS.pdf</a></b>.
 
 ### Introduction:
 
-In the introduction of the original paper, the provide this interesting graphic, illustrating superposition within a model. They graph each column of
-a model's wieghts as a vector and display how the model changes as you vary sparsity.
-
-I was able to get the same result using the information from the paper:
+In this section, I provide a motivating example of superposition by replicating a figure provided in the introduction of the original paper. 
+My replication (shown below), illustrates the internal structure of a toy model by graphing each column of the model’s weight matrix as a vector.
 
 <p align="center">
-<img width="730" alt="section1_replicated_graphic" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/1d968aee-ec92-4abf-81bf-4eb9b9bfe894">  
+<img width="730" alt="section1_replicated_graphic" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/1d968aee-ec92-4abf-81bf-4eb9b9bfe894">
 </p>
 
-Note that the bold lines display the length of the vector while the dotted ones merely show what the vector would look like if it was extended. The patern is the same:
-if there is no sparsity in the input, the model encodes the two most important features orthogonally. When you introduce sparsity, you begin to see superposition.
+The model studied had two neurons meaning the columns of the weight matrix could be understood as 2D vectors representing distinct inputs. These vectors
+could then be graphed to show the direction and extent a feature was represented. This experiment ultimately shows that if the training data for a model is 
+sparse enough, it can represent more features than it has neurons (which is the precise definition of superposition).
 
 ### Demonstrating Superposition:
 
 This section of my replication explores both a linear model defined by $W^TWx + b$ and a model with an ReLU activation function defined by ReLU($W^TWx + b$).
-Each model is trained to reconstruct it's input.
+Each model is trained to reconstruct its input.
 
 #### Models With Orthogonal Feature Representation (No Superposition):
 
@@ -71,8 +70,8 @@ that are colored blue represent features that are not represented orthogonally t
 <img width="600" alt="sparsity_superposition1" src="https://github.com/zroe1/toy_models_of_superposition/assets/114773939/827eeba9-bc02-47a8-b8eb-bde6700adaf8">
 </p>
 
-As one continues to increase the sparsity of the ReLU model, it ceases to represent any features orthogonally. Not that all the bar charts in the bottom of the
-figure below are colored blue to represent that the model is representing them in superposition. As a result, the grids representing $W^TW$ are far more noisy
+As one continues to increase the sparsity of the ReLU model, it ceases to represent any features orthogonally. Note that all the bar charts in the bottom of the
+figure below are colored blue to illustrate that the model is representing them in superposition. As a result, the grids representing $W^TW$ are far more noisy
 than in the examples above.
 
 <p align="center">
@@ -81,10 +80,14 @@ than in the examples above.
 
 ### Phase changes:
 
-The authors of <i>Toy Models of Superposition</i> claim that transitions from different interal structures within a model can be thought of as phase changes.
-The graphic below shows three phase diagrams. Note that I found that when training a group of ReLU models, they do not align with the theoretical phase diagram.
-The overall trend and shape, however is somewhat consistent. I also trained a group of linear models and found similar results despite the fact that, in theory,
-linear models should not represent any features in superpostion. This all illustrates that even if a model "should" do something, it may not unless the conditions
+<b><i>This part section of the paper is still being developed. The information below is what I have found so far, but I expect to 
+further develop these findings in the near future. In particular, by using more exact statistical methods, I plan to construct a
+more exact empirical phase diagram for the ReLU models studied.</i></b>
+
+The authors of <i>Toy Models of Superposition</i> claim that transitions from different internal structures within a model can be thought of as phase changes.
+The graphic below shows three phase diagrams for one-neuron-models. Note that I found that when training a group of ReLU models (ReLU($W^TWx + b$)), they do not align with the theoretical phase diagram.
+The overall trend and shape the phase transitions, however, is somewhat consistent. I also trained a group of linear models ($W^TWx + b$) and found similar results despite the fact that, in theory,
+linear models should not represent any features in superposition. This all illustrates that even if a model "should" do something, it may not unless the conditions
 are highly favorable.
 
 This part of the paper was perhaps the most difficult. It involved training 1,000,000 one-neuron ReLU models and 100,000 one-neuron linear models.
@@ -95,10 +98,10 @@ This part of the paper was perhaps the most difficult. It involved training 1,00
 
 ## Conclusions
 
-This replication demostrates that it is possible for models to represent features in superposition. It also shows that phenomenon of superposition is somewhat 
+This replication demonstrates that it is possible for models to represent features in superposition. It also shows that the phenomenon of superposition is somewhat 
 predictable. For example, models trained on sparse data are more likely to represent the features in superposition.
 
 With that being said, there are some serious limitations to thinking about neural networks in this way. In all the examples in this replication, 
-the result was highly dependent on the exact training conditions such as learning rate and batch size. Thus, I beleive that it is wise to be cautious when making
+the result was highly dependent on the exact training conditions such as learning rate and batch size. Thus, I believe that it is wise to be cautious when making
 broad claims about models such as "model x will represent less information in superposition than model y because model x is larger." The truth is that there
-are a number of important factors that influence weather or not a model with represent information orthogonally or in superposition. 
+are a number of important factors that influence whether or not a model will represent information orthogonally or in superposition. 
