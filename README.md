@@ -1,25 +1,30 @@
 # Toy Models of Superposition Replication
-This repository is replication of the paper Toy Models of Superposition conducted by researchers at Anthropic and Harvard in 2022. This repository includes
-a replication of the experiments from the introduction and sections 2 and 3 of the original paper.
+<a href="https://transformer-circuits.pub/2022/toy_model/index.html"><i>Toy Models of Superposition</i></a> is a groundbreaking machine learning 
+research paper published by authors affiliated with 
+<a href="https://www.anthropic.com/">Anthropic</a> and 
+Harvard in 2022. The original paper focuses on investigating how small “toy models” are able to represent more 
+features than they have neurons (a phenomenon the authors call “superposition”).
 
-I write up all my findings in a PDF document which can be found under the filename <b><a href="https://github.com/zroe1/toy_models_of_superposition/blob/main/FINDINGS.pdf">FINDINGS.pdf</a></b> in this repository. This document details the results
+This repository includes a replication of the experiments from the introduction and sections 2 and 3 of the original paper. 
+I write up all my findings in a PDF document which can be found under the filename <b><a href="https://github.com/zroe1/toy_models_of_superposition/blob/main/FINDINGS.pdf">FINDINGS.pdf</a></b> 
+in this repository. This document details the results
 of my experiments along with additional commentary from section 1 of the original paper.
 
-## What this respository includes
+## What this repository includes
 
 <ol>
   <li>
     <b>A complete writeup of all my findings: </b> This is found under the filename <b><a href="https://github.com/zroe1/toy_models_of_superposition/blob/main/FINDINGS.pdf">FINDINGS.pdf</a></b> in this repository. Because this repository is
-    dedicated to being a paper replication, it felt natural to write down my findings in the format of a paper so they are all found in
-    one place. The LaTeX file used to create the pdf if also provided under the name FINDINGS.tex.
+    dedicated to being a paper replication, it felt natural to write down my findings in one complete document. The LaTeX file used to create the 
+    pdf is also provided under the name FINDINGS.tex.
   </li>
   <li>
-    <b>The code: </b>Jupyter notebooks are provided which can be used to generate the results of all experiments I ran to replicate the findings of the original paper.
-    These experiments are organized into folders which share the same name as the titles of the sections in the original paper so everything is easy to find. 
+    <b>The code: </b>Jupyter notebooks are provided which can be used to generate results of all the experiments I conducted in my replication.
+    These experiments are organized into folders and given descriptive filenames so everything is easy to find. 
   </li>
   <li>
     <b>Summary: </b> For people who (reasonably) don't want to read through all of FINDINGS.pdf, I have provided a more concise summary of my findings
-    in this markdown file (which admittedly also isn't too short). This can be found in the section below.
+    in this markdown file (which admittedly also isn't too short).
   </li>
 </ol>
 
