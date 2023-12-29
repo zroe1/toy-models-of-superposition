@@ -80,9 +80,9 @@ than in the examples above.
 
 ### Phase changes:
 
-<b><i>This part section of the paper is still being developed. The information below is what I have found so far, but I expect to 
-further develop these findings in the near future. In particular, by using more exact statistical methods, I plan to construct a
-more exact empirical phase diagram for the ReLU models studied.</i></b>
+<b><i>This section of the paper is still being developed. The information below is what I have found so far, but I have
+already updated some of my beliefs and think it is likely that I will again in the near future. As a result, this repository will be updated
+in the near future with new findings.</i></b>
 
 The authors of <i>Toy Models of Superposition</i> claim that transitions from different internal structures within a model can be thought of as phase changes.
 The graphic below shows three phase diagrams for one-neuron-models. Note that I found that when training a group of ReLU models (ReLU($W^TWx + b$)), they do not align with the theoretical phase diagram.
